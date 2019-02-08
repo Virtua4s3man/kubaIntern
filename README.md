@@ -1,7 +1,7 @@
 Docker environment for a Symfony4 project
 ==================================
 
-#Twórcy
+# Twórcy
 Jakub Kułaga
 intern4@wearevirtua.com
 
