@@ -1,0 +1,4 @@
+24bcd8,172.26.0.1,GET,http://localhost:8000/,1549627242,,404
+6921c6,172.26.0.1,GET,http://localhost:8000/pizza,1549627269,,200
+eeeaf9,172.26.0.1,GET,http://localhost:8000/pizza,1549627370,,200
+8bde87,172.27.0.1,GET,http://localhost:8000/,1549628055,,404
