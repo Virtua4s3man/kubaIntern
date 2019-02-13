@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductCategoryRepository")
@@ -18,21 +19,25 @@ class ProductCategory
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\Length(max=64)
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Type("\DateTime")
      */
     private $creationDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Type("\DateTime")
      */
     private $modificationDate;
 
