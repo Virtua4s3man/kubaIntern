@@ -85,6 +85,16 @@ class ProductCategoryController extends AbstractController
      */
     public function delete(Request $request, ProductCategory $productCategory): Response
     {
+
+        if ($productCategory->hasProduct()){
+            $this->addFlash(
+                'warning',
+                "Can not remove catogory containing products"
+            );
+
+            return $this->redirectToRoute('product_category_index');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$productCategory->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($productCategory);

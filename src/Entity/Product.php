@@ -20,8 +20,8 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Assert\Length(max=64)
-     */
+     * @Assert\Length(min=3, max=64)
+        */
     private $name;
 
     /**
@@ -41,6 +41,11 @@ class Product
      * @Assert\Type("\DateTime")
      */
     private $modificationDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ProductCategory", inversedBy="product")
+     */
+    private $category;
 
     public function getId(): ?int
     {
@@ -91,6 +96,18 @@ class Product
     public function setModificationDate(\DateTimeInterface $modificationDate): self
     {
         $this->modificationDate = $modificationDate;
+
+        return $this;
+    }
+
+    public function getCategory(): ?ProductCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?ProductCategory $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

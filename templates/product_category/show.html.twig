@@ -35,4 +35,10 @@
     <a href="{{ path('product_category_edit', {'id': product_category.id}) }}">edit</a>
 
     {{ include('product_category/_delete_form.html.twig') }}
+
+    <h1>Products in category</h1>
+    {% set products = product_category.product %}
+    {{ include('product/_product_index_table.html.twig') }}
+
+
 {% endblock %}

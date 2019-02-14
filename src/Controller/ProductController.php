@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,6 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
@@ -54,6 +54,7 @@ class ProductController extends AbstractController
      */
     public function show(Product $product): Response
     {
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
         ]);
