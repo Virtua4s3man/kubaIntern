@@ -114,7 +114,7 @@ class ProductCategory
         return $this->products;
     }
 
-    public function addProduct(Product $product): self
+    public function addProduct (Product $product): self
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;

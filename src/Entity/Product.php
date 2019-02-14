@@ -43,7 +43,7 @@ class Product
     private $modificationDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ProductCategory", inversedBy="product")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ProductCategory", inversedBy="products")
      */
     private $category;
 
