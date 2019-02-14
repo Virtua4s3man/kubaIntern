@@ -86,7 +86,7 @@ class ProductCategoryController extends AbstractController
     public function delete(Request $request, ProductCategory $productCategory): Response
     {
 
-        if ($productCategory->hasProduct()){
+        if ($productCategory->hasProducts()){
             $this->addFlash(
                 'warning',
                 "Can not remove catogory containing products"

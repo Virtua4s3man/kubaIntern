@@ -46,11 +46,11 @@ class ProductCategory
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
      */
-    private $product;
+    private $products;
 
     public function __construct()
     {
-        $this->product = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,15 +109,15 @@ class ProductCategory
     /**
      * @return Collection|Product[]
      */
-    public function getProduct(): Collection
+    public function getProducts(): Collection
     {
-        return $this->product;
+        return $this->products;
     }
 
     public function addProduct(Product $product): self
     {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
             $product->setCategory($this);
         }
 
@@ -126,8 +126,8 @@ class ProductCategory
 
     public function removeProduct(Product $product): self
     {
-        if ($this->product->contains($product)) {
-            $this->product->removeElement($product);
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
             // set the owning side to null (unless already changed)
             if ($product->getCategory() === $this) {
                 $product->setCategory(null);
@@ -137,8 +137,8 @@ class ProductCategory
         return $this;
     }
 
-    public function hasProduct(): bool
+    public function hasProducts(): bool
     {
-        return count($this->product) != 0;
+        return count($this->products) != 0;
     }
 }
