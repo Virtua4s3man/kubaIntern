@@ -24,8 +24,6 @@ class ProductType extends AbstractType
                     'choice_label' => 'name',
                 ]
             )
-            ->add('creationDate')
-            ->add('modificationDate')
         ;
 
     }
