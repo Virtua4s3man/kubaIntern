@@ -18,7 +18,8 @@
         "symfony/security-csrf": "4.2.*",
         "symfony/twig-bundle": "4.2.*",
         "symfony/validator": "4.2.*",
-        "symfony/yaml": "4.2.*"
+        "symfony/yaml": "4.2.*",
+        "twbs/bootstrap": "^4.2"
     },
     "config": {
         "preferred-install": {
