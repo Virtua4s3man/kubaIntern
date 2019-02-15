@@ -22,8 +22,8 @@
                 <td>{{ product_category.id }}</td>
                 <td>{{ product_category.name }}</td>
                 <td>{{ product_category.description }}</td>
-                <td>{{ product_category.creationDate ? product_category.creationDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ product_category.modificationDate ? product_category.modificationDate|date('Y-m-d H:i:s') : '' }}</td>
+                {#<td>{{ product_category.creationDate ? product_category.creationDate|date('Y-m-d H:i:s') : '' }}</td>#}
+                {#<td>{{ product_category.modificationDate ? product_category.modificationDate|date('Y-m-d H:i:s') : '' }}</td>#}
                 <td>
                     <a href="{{ path('product_category_show', {'id': product_category.id}) }}">show</a>
                     <a href="{{ path('product_category_edit', {'id': product_category.id}) }}">edit</a>

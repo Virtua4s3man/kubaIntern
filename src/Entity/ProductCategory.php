@@ -6,12 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductCategoryRepository")
  */
 class ProductCategory
 {
+    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -31,17 +34,19 @@ class ProductCategory
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Assert\Type("\DateTime")
-     */
-    private $creationDate;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Assert\Type("\DateTime")
-     */
-    private $modificationDate;
+//    /**
+//     * @ORM\Column(type="datetime")
+//     * @Assert\Type("\DateTime")
+//     * @Gedmo\Timestampable(on="create")
+//     */
+//    private $creationDate;
+//
+//    /**
+//     * @Gedmo\Timestampable(on="update")
+//     * @ORM\Column(type="datetime")
+//     * @Assert\Type("\DateTime")
+//     */
+//    private $modificationDate;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")

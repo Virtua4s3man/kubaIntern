@@ -1,0 +1,3 @@
+stof_doctrine_extensions:
+  orm:
+      timestampable: true
