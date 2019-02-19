@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Library{% endblock %}
+
+{% block body %}
+<div>
+    <ul>
+        <li><a href="{{ path('book_index') }}">strona głowna</a></li>
+        <li>
+            Authors
+            <ul>
+                {% for author in authors %}
+                    <li><a href="{{ path('author_show', {'id':author.id}) }}">{{ author.getAuthorDisplay()}}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            Books
+            <ul>
+                {% for book in books %}
+                    <li><a href="{{ path('book_show', {'id':book.id}) }}">{{ book.title}}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            Genres
+            <ul>
+                {% for genre in genres %}
+                    <li><a href="{{ path('genre_show', {'id':genre.id}) }}">{{ genre.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <a href="{{ path('book_show', {'id':random_book.id}) }}">
+            <button class="btn btn-success">
+                Go to random book
+            </button>
+        </a>
+    </ul>
+</div>
+{% endblock %}
