@@ -28,6 +28,14 @@
                 <td>{{ book.country }}</td>
             </tr>
             <tr>
+                <th>Author</th>
+                <td>{{ book.author.getAuthorDisplay() }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ book.genre.name }}</td>
+            </tr>
+            <tr>
                 <th>Available</th>
                 <td>{{ book.available ? 'Dostępna' : 'Wypożyczona' }}</td>
             </tr>
