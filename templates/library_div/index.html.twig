@@ -2,7 +2,7 @@
     <ul>
         <li><a href="{{ path('book_index') }}">strona głowna</a></li>
         <li>
-            Authors
+            <a href="{{ path('author_index') }}">Authors</a>
             <ul>
                 {% for author in authors %}
                     <li><a href="{{ path('author_show', {'id':author.id}) }}">{{ author.getAuthorDisplay()}}</a></li>
@@ -10,7 +10,7 @@
             </ul>
         </li>
         <li>
-            Books
+            <a href="{{ path('book_index') }}">Books</a>
             <ul>
                 {% for book in books %}
                     <li><a href="{{ path('book_show', {'id':book.id}) }}">{{ book.title}}</a></li>
@@ -18,7 +18,7 @@
             </ul>
         </li>
         <li>
-            Genres
+            <a href="{{ path('genre_index') }}">Genres</a>
             <ul>
                 {% for genre in genres %}
                     <li><a href="{{ path('genre_show', {'id':genre.id}) }}">{{ genre.name}}</a></li>
