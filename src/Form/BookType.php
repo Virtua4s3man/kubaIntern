@@ -26,8 +26,8 @@ class BookType extends AbstractType
                 EntityType::class,
                 [
                     'class' => Author::class,
-                    'choice_label' => function ($category) {
-                        return $category->getAuthorDisplay();
+                    'choice_label' => function ($author) {
+                        return $author->getAuthorDisplay();
                     }
                 ]
             )

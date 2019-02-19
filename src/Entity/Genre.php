@@ -26,14 +26,14 @@ class Genre
      * @ORM\Column(type="string", length=64)
      * @Assert\Length(max=64)
      * @Assert\NotBlank
-     * @Assert\Regex("/^[\s\p{L}]+$/u")
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=64)
-     * @Assert\Regex("/^[\s\p{L}]+$/u")
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      */
     private $description;
 

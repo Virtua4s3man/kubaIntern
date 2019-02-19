@@ -24,7 +24,7 @@ class Author
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank
      * @Assert\Length(max=64)
-     * @Assert\Regex("/^[\s\p{L}]+$/u")
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      */
     private $name;
 
@@ -32,7 +32,7 @@ class Author
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank
      * @Assert\Length(max=64)
-     * @Assert\Regex("/^[\s\p{L}]+$/u")
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      */
     private $surname;
 
