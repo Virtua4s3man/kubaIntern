@@ -15,12 +15,6 @@ class WelcomeController extends AbstractController
      */
     public function index()
     {
-        $session = new Session(new NativeSessionStorage(), new NamespacedAttributeBag());
-        $session->set('wishlist/prod1', 'ok');
-        $session->set('user/dono', 'user');
-
-        dump($session);
-
         return $this->render('welcome/index.html.twig', [
             'controller_name' => 'Welcome',
             'date' => new \DateTime(),
