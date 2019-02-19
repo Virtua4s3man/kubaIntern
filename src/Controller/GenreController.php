@@ -60,10 +60,9 @@ class GenreController extends AbstractController
      */
     public function show(Genre $genre): Response
     {
-        $logRepo = $this->getDoctrine()->getRepository('Gedmo\Loggable\Entity\LogEntry');
         return $this->render('genre/show.html.twig', [
             'genre' => $genre,
-            'modifications' => count($logs = $logRepo->getLogEntries($genre))-1,
+            'modifications' => $this->countGenreModifications($genre),
         ]);
     }
 
@@ -131,5 +130,17 @@ class GenreController extends AbstractController
         }
 
         return $this->redirectToRoute('genre_index');
+    }
+
+    /**
+     * Counts modifications of genre
+     * @param Genre $genre
+     * @return int
+     */
+    private function countGenreModifications(Genre $genre): int
+    {
+        $logRepo = $this->getDoctrine()->getRepository('Gedmo\Loggable\Entity\LogEntry');
+
+        return count($logs = $logRepo->getLogEntries($genre))-1;
     }
 }
