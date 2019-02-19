@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Genre;
 use App\Form\GenreType;
 use App\Repository\GenreRepository;
+use Doctrine\ORM\EntityManager;
 use Gedmo\Loggable\Entity\LogEntry;
 use Gedmo\Loggable\Entity\Repository\LogEntryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -75,18 +76,7 @@ class GenreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $logEntry = new LogEntry();
-            $logEntry->setAction('update');
-            $logEntry->setLoggedAt();
-            $logEntry->setObjectId($genre->getId());
-            $logEntry->setObjectClass($em->getClassMetadata(get_class($genre))->getName());
-            $logEntry->setVersion(time());
-            $logEntry->setData($genre->getModification());
-
-            $em->persist($logEntry);
-            $em->persist($genre);
-            $em->flush();
+            $this->updateGenre($genre);
 
             $this->addFlash(
                 'success',
@@ -130,6 +120,34 @@ class GenreController extends AbstractController
         }
 
         return $this->redirectToRoute('genre_index');
+    }
+
+    /**
+     * Update genre with current version
+     * @throws \Doctrine\ORM\ORMException
+     */
+    private function updateGenre(Genre $genre)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $this->updateGenreVersion($em, $genre);
+        $em->flush();
+    }
+
+    /**
+     * @param EntityManager $em
+     * @param Genre $genre
+     * @throws \Doctrine\ORM\ORMException
+     */
+    private function updateGenreVersion(EntityManager $em, Genre $genre)
+    {
+        $logEntry = new LogEntry();
+        $logEntry->setAction('update');
+        $logEntry->setLoggedAt();
+        $logEntry->setObjectId($genre->getId());
+        $logEntry->setObjectClass($em->getClassMetadata(get_class($genre))->getName());
+        $logEntry->setVersion(time());
+        $logEntry->setData($genre->getModification());
+        $em->persist($logEntry);
     }
 
     /**
