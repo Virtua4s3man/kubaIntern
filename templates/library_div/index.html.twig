@@ -30,11 +30,13 @@
                 {% endfor %}
             </ul>
         </li>
-        <a href="{{ path('book_show', {'id':random_book.id}) }}">
-            <button class="btn btn-success">
-                Go to random book
-            </button>
-        </a>
+        {% if random_book %}
+            <a href="{{ path('book_show', {'id':random_book.id}) }}">
+                <button class="btn btn-success">
+                    Go to random book
+                </button>
+            </a>
+        {% endif %}
     </ul>
 </div>
 {% endblock %}
