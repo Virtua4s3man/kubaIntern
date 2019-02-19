@@ -58,19 +58,12 @@ class GenreController extends AbstractController
     /**
      * @Route("/{id}", name="genre_show", methods={"GET"})
      */
-    public function show(Genre $genre, LogEntry $log): Response
+    public function show(Genre $genre): Response
     {
-        $log->setVersion();
-//        $loggable = $this->getDoctrine()->getRepository('Gedmo\Loggable\Entity\LogEntry');
-//        $logs = $loggable->getLogEntries($genre);
-//        dump($logs);
-//        $logs = $logRepo->getLogEntries($genre);
-//        dump($this);
-//        $s = $logEntry->getVersion();
-//        dump($s);
-
+        $logRepo = $this->getDoctrine()->getRepository('Gedmo\Loggable\Entity\LogEntry');
         return $this->render('genre/show.html.twig', [
             'genre' => $genre,
+            'modifications' => count($logs = $logRepo->getLogEntries($genre))-1,
         ]);
     }
 
@@ -84,6 +77,15 @@ class GenreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $logEntry = new LogEntry();
+            $logEntry->setAction('update');
+            $logEntry->setLoggedAt();
+            $logEntry->setObjectId($genre->getId());
+            $logEntry->setObjectClass($em->getClassMetadata(get_class($genre))->getName());
+            $logEntry->setVersion(time());
+            $logEntry->setData($genre->getModification());
+
+            $em->persist($logEntry);
             $em->persist($genre);
             $em->flush();
 
