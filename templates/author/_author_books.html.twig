@@ -1,0 +1,30 @@
+<h1>Book by this author</h1>
+
+<table class="table table-dark table-stripped">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <td>Genre</td>
+        <th>Year of publishment</th>
+        <th>Country</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.genre.name }}</td>
+            <td>{{ book.year }}</td>
+            <td>{{ book.country }}</td>
+            <td>
+                <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="7">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
