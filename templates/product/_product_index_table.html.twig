@@ -20,7 +20,7 @@
             <td>
                 <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
                 <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-                {{ include('wishlist/_add_form.html.twig') }}
+                {{ include('product/wishlist/_add_form.html.twig') }}
             </td>
         </tr>
     {% else %}
