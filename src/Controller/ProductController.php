@@ -8,6 +8,13 @@ use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -15,13 +22,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductController extends AbstractController
 {
+    private $wishlistPrefix = 'wishlist_product_';
+
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(Request $request, ProductRepository $productRepository): Response
     {
+        if ($request->hasSession()) {
+            $session = $request->getSession();
+        }
+
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
+            'ids_on_wishlist' => array_values($this->getWishlist($session)),
         ]);
     }
 
@@ -109,5 +123,87 @@ class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('product_index');
+    }
+
+    /**
+     * @Route("/wishlist/{id}", name="wishlist_add", methods={"POST"})
+     */
+    public function wishlistAdd(Request $request, Product $product)
+    {
+        if ($this->isCsrfTokenValid('add'.$product->getId(), $request->request->get('_token'))) {
+            if ($request->hasSession()) {
+                $session = $request->getSession();
+                $this->addToWishlist($session, $product);
+            }
+        }
+
+        return $this->redirectToRoute('product_index');
+    }
+
+    /**
+     * @Route("/wishlist/{id}", name="wishlist_delete", methods={"DELETE"})
+     */
+    public function wishlistRemove(Request $request, Product $product)
+    {
+        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+            if ($request->hasSession()) {
+                $session = $request->getSession();
+                $session->remove(
+                    $this->makeWishlistName($product->getId())
+                );
+            }
+        }
+        return $this->redirectToRoute('product_index');
+    }
+
+    /**
+     * @Route("/wishlist/clear", name="wishlist_clear", methods={"DELETE"})
+     */
+    public function wishlistClear(Request $request)
+    {
+        exit;
+//        if ($this->isCsrfTokenValid('delete', $request->request->get('_token'))) {
+//            if ($request->hasSession()) {
+//                $session = $request->getSession();
+//                $this->clearWishlist($session);
+//            }
+//        }
+
+//        return $this->redirectToRoute('product_index');
+    }
+
+    private function clearWishlist(Session $session)
+    {
+        $keys = array_keys($this->getWishlist($session));
+        foreach ($keys as $key) {
+            $session->remove($key);
+        }
+    }
+
+    private function addToWishlist(SessionInterface $session, Product $product)
+    {
+        $id = $product->getId();
+        if (5 > count($this->getWishlist($session))) {
+            $session->set($this->makeWishlistName($id), $id);
+            $this->addFlash('success', $product->getName() . ' added to wishlist');
+        } else {
+            $this->addFlash('warning', 'wishlist can\'t contain more than 5 products');
+        }
+    }
+
+    private function makeWishlistName($id)
+    {
+        return $this->wishlistPrefix . $id;
+    }
+
+    private function getWishlist(Session $session): array
+    {
+        return array_filter(
+            $session->all(),
+            function ($key) {
+                return strpos($key, $this->wishlistPrefix) === 0;
+            },
+            ARRAY_FILTER_USE_KEY
+        );
     }
 }
