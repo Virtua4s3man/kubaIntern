@@ -8,13 +8,8 @@ use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
-use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
-use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
-use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -35,7 +30,7 @@ class ProductController extends AbstractController
 
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
-            'ids_on_wishlist' => array_values($this->getWishlist($session)),
+            'ids_on_wishlist' => [],//array_values($this->getWishlist($session)),
         ]);
     }
 
@@ -140,37 +135,37 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('product_index');
     }
 
-    /**
-     * @Route("/wishlist/{id}", name="wishlist_delete", methods={"DELETE"})
-     */
-    public function wishlistRemove(Request $request, Product $product)
-    {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            if ($request->hasSession()) {
-                $session = $request->getSession();
-                $session->remove(
-                    $this->makeWishlistName($product->getId())
-                );
-            }
-        }
-        return $this->redirectToRoute('product_index');
-    }
+//    /**
+//     * @Route("/wishlist/{id}", name="wishlist_delete", methods={"DELETE"})
+//     */
+//    public function wishlistRemove(Request $request, Product $product)
+//    {
+//        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+//            if ($request->hasSession()) {
+//                $session = $request->getSession();
+//                $session->remove(
+//                    $this->makeWishlistName($product->getId())
+//                );
+//            }
+//        }
+//        return $this->redirectToRoute('product_index');
+//    }
 
-    /**
-     * @Route("/wishlist/clear", name="wishlist_clear", methods={"DELETE"})
-     */
-    public function wishlistClear(Request $request)
-    {
-        exit;
+//    /**
+//     * @Route("/wishlist/clear", name="wishlist_clear", methods={"DELETE"})
+//     */
+//    public function wishlistClear(Request $request)
+//    {
+//        exit;
 //        if ($this->isCsrfTokenValid('delete', $request->request->get('_token'))) {
 //            if ($request->hasSession()) {
 //                $session = $request->getSession();
 //                $this->clearWishlist($session);
 //            }
 //        }
-
+//
 //        return $this->redirectToRoute('product_index');
-    }
+//    }
 
     private function clearWishlist(Session $session)
     {
