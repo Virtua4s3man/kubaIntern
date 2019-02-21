@@ -1,0 +1,5 @@
+{% if product.id in ids_on_wishlist %}
+    {{ include('product/wishlist/_remove_form.html.twig') }}
+{% else %}
+    {{ include('product/wishlist/_add_form.html.twig') }}
+{% endif %}
