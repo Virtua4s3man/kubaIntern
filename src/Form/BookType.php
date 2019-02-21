@@ -22,7 +22,8 @@ class BookType extends AbstractType
             ->add('year')
             ->add('country', CountryType::class)
             ->add('available')
-            ->add('author',
+            ->add(
+                'author',
                 EntityType::class,
                 [
                     'class' => Author::class,
@@ -31,7 +32,8 @@ class BookType extends AbstractType
                     }
                 ]
             )
-            ->add('genre',
+            ->add(
+                'genre',
                 EntityType::class,
                 [
                     'class' => Genre::class,

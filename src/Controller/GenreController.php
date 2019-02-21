@@ -134,8 +134,6 @@ class GenreController extends AbstractController
     }
 
     /**
-     * @param EntityManager $em
-     * @param Genre $genre
      * @throws \Doctrine\ORM\ORMException
      */
     private function updateGenreVersion(EntityManager $em, Genre $genre)
@@ -152,8 +150,6 @@ class GenreController extends AbstractController
 
     /**
      * Counts modifications of genre
-     * @param Genre $genre
-     * @return int
      */
     private function countGenreModifications(Genre $genre): int
     {

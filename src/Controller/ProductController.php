@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
-use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
+use App\Utils\ProductWishlist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +19,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(Request $request, ProductRepository $productRepository): Response
     {
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
@@ -110,5 +110,17 @@ class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('product_index');
+    }
+
+    /**
+     * @Route("/wishlist/{id}", name="wishlist_add", methods={"POST"})
+     */
+    public function wishlistAdd(Request $request, Product $product, ProductWishlist $wishlist): Response
+    {
+        if ($this->isCsrfTokenValid('add'.$product->getId(), $request->request->get('_token'))) {
+            $wishlist->add($product);
+        }
+
+        return $this->redirect($wishlist->getRefererUrl($request));
     }
 }

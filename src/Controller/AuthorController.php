@@ -77,7 +77,7 @@ class AuthorController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Autor ' .$author->getAuthorDisplay().' was updated'
+                'Author ' .$author->getAuthorDisplay().' was updated'
             );
 
             return $this->redirectToRoute('author_index', [
@@ -112,7 +112,7 @@ class AuthorController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Autor ' .$author->getAuthorDisplay().' was deleted'
+                'Author ' .$author->getAuthorDisplay().' was deleted'
             );
         }
 
