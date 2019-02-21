@@ -24,8 +24,6 @@ class ProductController extends AbstractController
      */
     public function index(Request $request, ProductRepository $productRepository): Response
     {
-        $session = $request->getSession();
-
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
         ]);
