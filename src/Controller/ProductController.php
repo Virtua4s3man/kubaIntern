@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Utils\ProductLogger;
 use App\Utils\ProductWishlist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,8 +60,10 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_show", methods={"GET"})
      */
-    public function show(Product $product, ProductWishlist $wishlist): Response
+    public function show(Product $product, ProductWishlist $wishlist, ProductLogger $logger): Response
     {
+        $logger->logDisplayed($product);
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'ids_on_wishlist' => $wishlist->getIdsOnWishlist(),
@@ -70,7 +73,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/edit", name="product_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Product $product): Response
+    public function edit(Request $request, Product $product, ProductLogger $logger): Response
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -83,6 +86,7 @@ class ProductController extends AbstractController
                 "Product has been updated"
             );
 
+            $logger->logUpdated($product);
 
             return $this->redirectToRoute('product_index', [
                 'id' => $product->getId(),
@@ -98,12 +102,14 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Product $product): Response
+    public function delete(Request $request, Product $product, ProductLogger $logger): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($product);
             $entityManager->flush();
+
+            $logger->logDeleted($product);
 
             $this->addFlash(
                 'success',
