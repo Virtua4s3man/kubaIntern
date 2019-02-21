@@ -16,16 +16,24 @@ class ProductWishlist
 {
     private $wishlistPrefix = 'wishlist_product_';
     private $session;
+    private $flashBag;
 
     public function __construct(SessionInterface $session)
     {
         $this->session = $session;
+        $this->flashBag = $this->session->getBag('flashes');
     }
 
     public function add(Product $product)
     {
-        $id = $product->getId();
-        $this->session->set($this->makeKey($id), $id);
+        if (5 > count($this->getWishlist())) {
+            $id = $product->getId();
+            $this->session->set($this->makeKey($id), $id);
+
+            $this->flashBag->add('success', $product->getName() . ' added to wishlist');
+        } else {
+            $this->flashBag->add('warning', 'wishlist can\'t contain more than 5 products');
+        }
     }
 
     public function clear()
