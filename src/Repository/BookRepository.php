@@ -23,7 +23,7 @@ class BookRepository extends ServiceEntityRepository
      * Gets random book
      * @return Book
      */
-    public function getRandomBook(): Book
+    public function getRandomBook(): ?Book
     {
         $bookAmount = $this->count([]);
         return $bookAmount ? $this->findBy([], null, 1, rand()%$bookAmount)[0] : null;

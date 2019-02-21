@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ProductCategory;
 use App\Form\ProductCategoryType;
 use App\Repository\ProductCategoryRepository;
+use App\Utils\ProductWishlist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,10 +57,11 @@ class ProductCategoryController extends AbstractController
     /**
      * @Route("/{id}", name="product_category_show", methods={"GET"})
      */
-    public function show(ProductCategory $productCategory): Response
+    public function show(ProductCategory $productCategory, ProductWishlist $wishlist): Response
     {
         return $this->render('product_category/show.html.twig', [
             'product_category' => $productCategory,
+            'ids_on_wishlist' => $wishlist->getIdsOnWishlist(),
         ]);
     }
 
@@ -98,7 +100,7 @@ class ProductCategoryController extends AbstractController
         if ($productCategory->hasProducts()) {
             $this->addFlash(
                 'warning',
-                "Can not remove catogory containing products"
+                "Can not remove category containing products"
             );
 
             return $this->redirectToRoute('product_category_index');

@@ -19,10 +19,11 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
-    public function index(Request $request, ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, ProductWishlist $wishlist): Response
     {
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
+            'ids_on_wishlist' => $wishlist->getIdsOnWishlist(),
         ]);
     }
 
@@ -58,10 +59,11 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_show", methods={"GET"})
      */
-    public function show(Product $product): Response
+    public function show(Product $product, ProductWishlist $wishlist): Response
     {
         return $this->render('product/show.html.twig', [
             'product' => $product,
+            'ids_on_wishlist' => $wishlist->getIdsOnWishlist(),
         ]);
     }
 
@@ -113,12 +115,36 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @Route("/wishlist/clear/", name="wishlist_clear", methods={"DELETE"})
+     */
+    public function wishlistClear(Request $request, ProductWishlist $wishlist): Response
+    {
+        if ($this->isCsrfTokenValid('clear', $request->request->get('_token'))) {
+            $wishlist->clear();
+        }
+
+        return $this->redirect($wishlist->getRefererUrl($request));
+    }
+
+    /**
      * @Route("/wishlist/{id}", name="wishlist_add", methods={"POST"})
      */
     public function wishlistAdd(Request $request, Product $product, ProductWishlist $wishlist): Response
     {
         if ($this->isCsrfTokenValid('add'.$product->getId(), $request->request->get('_token'))) {
             $wishlist->add($product);
+        }
+
+        return $this->redirect($wishlist->getRefererUrl($request));
+    }
+
+    /**
+     * @Route("/wishlist/{id}", name="wishlist_remove", methods={"DELETE"})
+     */
+    public function wishlistRemove(Request $request, Product $product, ProductWishlist $wishlist): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+            $wishlist->remove($product);
         }
 
         return $this->redirect($wishlist->getRefererUrl($request));
