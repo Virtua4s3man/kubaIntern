@@ -9,8 +9,24 @@
 namespace App\Utils;
 
 
+use App\Entity\Product;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 class ProductWishlist
 {
-    CONST WISHLIST_PREFIX = 'wishlist_product';
+    private $wishlistPrefix = 'wishlist_product_';
 
+    public function add(Session $session, Product $product)
+    {
+        $id = $product->getId();
+        $session->set($this->makeKey($id), $id);
+    }
+
+    /**
+     * Prefix id with $this->wishlistPrefix
+     */
+    private function makeKey(int $id): string
+    {
+        return $this->wishlistPrefix . $id;
+    }
 }

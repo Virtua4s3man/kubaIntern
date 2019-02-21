@@ -13,7 +13,10 @@
     {% for product in products %}
         <tr>
             <td>{{ product.id }}</td>
-            <td>{{ product.name }}</td>
+            <td>
+                {{ product.name }}
+                {{ include('product/wishlist/_add_form.html.twig') }}
+            </td>
             <td>{{ product.description }}</td>
             <td>{{ product.creationDate ? product.creationDate|date('Y-m-d H:i:s') : '' }}</td>
             <td>{{ product.modificationDate ? product.modificationDate|date('Y-m-d H:i:s') : '' }}</td>
