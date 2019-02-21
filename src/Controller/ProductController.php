@@ -126,6 +126,6 @@ class ProductController extends AbstractController
             $wishlist->add($request->getSession(), $product);
         }
 
-        return $this->redirectToRoute('product_index');
+        return $this->redirect($wishlist->getRefererUrl($request));
     }
 }

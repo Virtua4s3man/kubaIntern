@@ -10,6 +10,7 @@ namespace App\Utils;
 
 
 use App\Entity\Product;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ProductWishlist
@@ -20,6 +21,11 @@ class ProductWishlist
     {
         $id = $product->getId();
         $session->set($this->makeKey($id), $id);
+    }
+
+    public function getRefererUrl(Request $request): string
+    {
+        return $request->headers->get('referer');
     }
 
     /**
