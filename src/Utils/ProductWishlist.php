@@ -14,18 +14,28 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ProductWishlist
 {
+    const MAX_WISHLIST_SIZE = 5;
+
     private $wishlistPrefix = 'wishlist_product_';
     private $session;
+    private $flashBag;
 
     public function __construct(SessionInterface $session)
     {
         $this->session = $session;
+        $this->flashBag = $this->session->getBag('flashes');
     }
 
     public function add(Product $product)
     {
-        $id = $product->getId();
-        $this->session->set($this->makeKey($id), $id);
+        if (self::MAX_WISHLIST_SIZE > count($this->getWishlist())) {
+            $id = $product->getId();
+            $this->session->set($this->makeKey($id), $id);
+
+            $this->flashBag->add('success', $product->getName() . ' added to wishlist');
+        } else {
+            $this->flashBag->add('warning', 'wishlist can\'t contain more than '.self::MAX_WISHLIST_SIZE.' products');
+        }
     }
 
     public function clear()

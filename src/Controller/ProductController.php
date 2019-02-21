@@ -115,19 +115,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/wishlist/clear/", name="wishlist_clear", methods={"DELETE"})
-     */
-    public function wishlistClear(Request $request, ProductWishlist $wishlist): Response
-    {
-        if ($this->isCsrfTokenValid('clear', $request->request->get('_token'))) {
-            $wishlist->clear();
-        }
-
-        return $this->redirect($wishlist->getRefererUrl($request));
-    }
-
-    /**
-     * @Route("/wishlist/{id}", name="wishlist_add", methods={"POST"})
+     * @Route("/wishlist/{id<\d+>}", name="wishlist_add", methods={"POST"})
      */
     public function wishlistAdd(Request $request, Product $product, ProductWishlist $wishlist): Response
     {
@@ -139,12 +127,24 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/wishlist/{id}", name="wishlist_remove", methods={"DELETE"})
+     * @Route("/wishlist/{id<\d+>}", name="wishlist_remove", methods={"DELETE"})
      */
     public function wishlistRemove(Request $request, Product $product, ProductWishlist $wishlist): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $wishlist->remove($product);
+        }
+
+        return $this->redirect($wishlist->getRefererUrl($request));
+    }
+
+    /**
+     * @Route("/wishlist/clear/", name="wishlist_clear", methods={"DELETE"})
+     */
+    public function wishlistClear(Request $request, ProductWishlist $wishlist): Response
+    {
+        if ($this->isCsrfTokenValid('clear', $request->request->get('_token'))) {
+            $wishlist->clear();
         }
 
         return $this->redirect($wishlist->getRefererUrl($request));
