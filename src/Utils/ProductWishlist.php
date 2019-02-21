@@ -28,13 +28,13 @@ class ProductWishlist
 
     public function add(Product $product)
     {
-        if (ProductWishlist::MAX_WISHLIST_SIZE > count($this->getWishlist())) {
+        if (self::MAX_WISHLIST_SIZE > count($this->getWishlist())) {
             $id = $product->getId();
             $this->session->set($this->makeKey($id), $id);
 
             $this->flashBag->add('success', $product->getName() . ' added to wishlist');
         } else {
-            $this->flashBag->add('warning', 'wishlist can\'t contain more than 5 products');
+            $this->flashBag->add('warning', 'wishlist can\'t contain more than '.self::MAX_WISHLIST_SIZE.' products');
         }
     }
 
