@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ProductWishlist
 {
+    const MAX_WISHLIST_SIZE = 5;
+
     private $wishlistPrefix = 'wishlist_product_';
     private $session;
     private $flashBag;
@@ -26,7 +28,7 @@ class ProductWishlist
 
     public function add(Product $product)
     {
-        if (5 > count($this->getWishlist())) {
+        if (ProductWishlist::MAX_WISHLIST_SIZE > count($this->getWishlist())) {
             $id = $product->getId();
             $this->session->set($this->makeKey($id), $id);
 
