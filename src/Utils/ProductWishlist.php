@@ -11,13 +11,12 @@ namespace App\Utils;
 
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ProductWishlist
 {
     private $wishlistPrefix = 'wishlist_product_';
-    private $session = null;
+    private $session;
 
     public function __construct(SessionInterface $session)
     {
