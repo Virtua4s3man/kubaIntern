@@ -26,10 +26,6 @@ class ProductWishlist
 
     public function add(Product $product)
     {
-        if (null === $this->session) {
-            return;
-        }
-
         $id = $product->getId();
         $this->session->set($this->makeKey($id), $id);
     }
