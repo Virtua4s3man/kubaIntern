@@ -122,8 +122,8 @@ class ProductController extends AbstractController
      */
     public function wishlistAdd(Request $request, Product $product, ProductWishlist $wishlist): Response
     {
-        if ($request->hasSession()) {
-            $wishlist->add($request->getSession(), $product);
+        if ($this->isCsrfTokenValid('add'.$product->getId(), $request->request->get('_token'))) {
+            $wishlist->add($product);
         }
 
         return $this->redirect($wishlist->getRefererUrl($request));

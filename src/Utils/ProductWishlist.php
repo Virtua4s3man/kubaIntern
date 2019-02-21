@@ -12,15 +12,27 @@ namespace App\Utils;
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ProductWishlist
 {
     private $wishlistPrefix = 'wishlist_product_';
+    private $session = null;
 
-    public function add(Session $session, Product $product)
+    public function __construct(SessionInterface $session)
     {
+        $this->session = $session;
+    }
+
+
+    public function add(Product $product)
+    {
+        if (null === $this->session) {
+            return;
+        }
+
         $id = $product->getId();
-        $session->set($this->makeKey($id), $id);
+        $this->session->set($this->makeKey($id), $id);
     }
 
     public function getRefererUrl(Request $request): string
