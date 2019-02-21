@@ -16,7 +16,7 @@
             <td>{{ product.id }}</td>
             <td>
                 {{ product.name }}
-                {{include('product/wishlist/_add_remove_button.html.twig')}}
+                {{include('product/wishlist/_add_or_remove_button.html.twig')}}
             </td>
             <td>{{ product.description }}</td>
             <td>{{ product.creationDate ? product.creationDate|date('Y-m-d H:i:s') : '' }}</td>
