@@ -1,11 +1,182 @@
-<?xml version="1.0"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" datatype="plaintext" original="file.ext">
-        <body>
-            <trans-unit id="symfony_is_great">
-                <source>Symfony is great</source>
-                <target>J'aime Symfony</target>
-            </trans-unit>
-        </body>
-    </file>
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="pl" target-language="pl" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="KA1Eqx6" resname="welcome">
+        <source>welcome</source>
+        <target>witaj</target>
+      </trans-unit>
+      <trans-unit id="1c7v5F7" resname="now is">
+        <source>now is</source>
+        <target>teraz jest</target>
+      </trans-unit>
+      <trans-unit id="SVPHkFO" resname="product category">
+        <source>product category</source>
+        <target>kategoria produktu</target>
+      </trans-unit>
+      <trans-unit id="pWFFJwz" resname="id">
+        <source>id</source>
+        <target>id</target>
+      </trans-unit>
+      <trans-unit id="gqNTf.D" resname="name">
+        <source>name</source>
+        <target>nazwa</target>
+      </trans-unit>
+      <trans-unit id="yQRveje" resname="description">
+        <source>description</source>
+        <target>opis</target>
+      </trans-unit>
+      <trans-unit id="HCJivOb" resname="creation date">
+        <source>creation date</source>
+        <target>data utworzenia</target>
+      </trans-unit>
+      <trans-unit id="XGm_pjT" resname="modification date">
+        <source>modification date</source>
+        <target>ostatnia modyfikacja</target>
+      </trans-unit>
+      <trans-unit id="U0M9PNE" resname="back to list">
+        <source>back to list</source>
+        <target>pwrót do listy</target>
+      </trans-unit>
+      <trans-unit id="JiEhxTc" resname="edit">
+        <source>edit</source>
+        <target>edytuj</target>
+      </trans-unit>
+      <trans-unit id="W6VywOy" resname="products in category">
+        <source>products in category</source>
+        <target>produkty z kategori</target>
+      </trans-unit>
+      <trans-unit id="qHkhV8t" resname="product">
+        <source>product</source>
+        <target>produkt</target>
+      </trans-unit>
+      <trans-unit id="7bLNO3T" resname="category">
+        <source>category</source>
+        <target>kategoria</target>
+      </trans-unit>
+      <trans-unit id="YZdZVQP" resname="delete">
+        <source>delete</source>
+        <target>usuń</target>
+      </trans-unit>
+      <trans-unit id="Ph9LINa" resname="edit product category">
+        <source>edit product category</source>
+        <target>edytuj kategorię produktu</target>
+      </trans-unit>
+      <trans-unit id="Ltohzbo" resname="new product category">
+        <source>new product category</source>
+        <target>nowa kategoria produktu</target>
+      </trans-unit>
+      <trans-unit id="q0clsXi" resname="create new product category">
+        <source>create new product category</source>
+        <target>stwórz nową kategorię produktu</target>
+      </trans-unit>
+      <trans-unit id="piFuoD5" resname="categories">
+        <source>categories</source>
+        <target>kategorie</target>
+      </trans-unit>
+      <trans-unit id="aOJ234j" resname="product category index">
+        <source>product category index</source>
+        <target>lista kategori produktów</target>
+      </trans-unit>
+      <trans-unit id="Kw3N1AA" resname="actions">
+        <source>actions</source>
+        <target>akcje</target>
+      </trans-unit>
+      <trans-unit id="HGMzUJ3" resname="show">
+        <source>show</source>
+        <target>pokaź</target>
+      </trans-unit>
+      <trans-unit id="D5lam8." resname="no records found">
+        <source>no records found</source>
+        <target>nic do wyświetlenia</target>
+      </trans-unit>
+      <trans-unit id="5gd8I34" resname="create new">
+        <source>create new</source>
+        <target>stwórz</target>
+      </trans-unit>
+      <trans-unit id="REE8PZe" resname="Are you sure you want to delete this item?">
+        <source>Are you sure you want to delete this item?</source>
+        <target>Czy na pewno chcesz to usunąć?</target>
+      </trans-unit>
+      <trans-unit id="DoIPOho" resname="edit product">
+        <source>edit product</source>
+        <target>edytuj produkt</target>
+      </trans-unit>
+      <trans-unit id="ED_U31L" resname="new product">
+        <source>new product</source>
+        <target>nowy produkt</target>
+      </trans-unit>
+      <trans-unit id="IbKPdm1" resname="create new product">
+        <source>create new product</source>
+        <target>stwórz nowy produkt</target>
+      </trans-unit>
+      <trans-unit id="yDgCmHa" resname="symfony catalog">
+        <source>symfony catalog</source>
+        <target>katalog symfony</target>
+      </trans-unit>
+      <trans-unit id="RpIBtT1" resname="product index">
+        <source>product index</source>
+        <target>lista produktów</target>
+      </trans-unit>
+      <trans-unit id="jZOHsT0" resname="add to wishlist">
+        <source>add to wishlist</source>
+        <target>dodaj do listy życzeń</target>
+      </trans-unit>
+      <trans-unit id="hKqk8iY" resname="delete from wishlist">
+        <source>delete from wishlist</source>
+        <target>usuń z listy życzeń</target>
+      </trans-unit>
+      <trans-unit id="MtTUR.J" resname="clear wishlist">
+        <source>clear wishlist</source>
+        <target>wyszyść listę życzeń</target>
+      </trans-unit>
+      <trans-unit id="70PxAGK" resname="kubaIntern">
+        <source>kubaIntern</source>
+        <target>kubaIntern</target>
+      </trans-unit>
+      <trans-unit id="0WqApD1" resname="main page">
+        <source>main page</source>
+        <target>strona główna</target>
+      </trans-unit>
+      <trans-unit id="EJAaHDL" resname="(current)">
+        <source>(current)</source>
+        <target>(bieżące)</target>
+      </trans-unit>
+      <trans-unit id="can not remove category containing products" resname="can not remove category containing products">
+        <source>can not remove category containing products</source>
+        <target>nie można usunąć kategori zawierającej produkty</target>
+      </trans-unit>
+      <trans-unit id="category has been deleted" resname="category has been deleted">
+        <source>category has been deleted</source>
+        <target>kategoria została usunięta</target>
+      </trans-unit>
+      <trans-unit id="category has been added" resname="category has been added">
+        <source>category has been added</source>
+        <target>kategoria została dodana</target>
+      </trans-unit>
+      <trans-unit id="category has been updated" resname="category has been updated">
+        <source>category has been updated</source>
+        <target>kategoria została zedytowana</target>
+      </trans-unit>
+      <trans-unit id="product has been added" resname="product has been added">
+        <source>product has been added</source>
+        <target>podukt został dodany</target>
+      </trans-unit>
+      <trans-unit id="product has been updated" resname="product has been updated">
+        <source>product has been updated</source>
+        <target>product has been updated</target>
+      </trans-unit>
+      <trans-unit id="product has been deleted" resname="product has been deleted">
+        <source>product has been deleted</source>
+        <target>produkt został dodany</target>
+      </trans-unit>
+      <trans-unit id="save" resname="save">
+        <source>save</source>
+        <target>zapisz</target>
+      </trans-unit>
+    </body>
+  </file>
 </xliff>
