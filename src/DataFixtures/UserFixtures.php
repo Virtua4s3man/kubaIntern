@@ -19,12 +19,14 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $user = new User();
-        $user->setUsername('dono');
+        $user->setUsername('admin');
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'dono'
+            'admin'
         ));
         $user->setEmail('intern4@wearevirtua.com');
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setEnabled(true);
         $manager->persist($user);
 
         $manager->flush();
