@@ -1,11 +1,11 @@
 {% extends 'product_base.html.twig' %}
 
-{% block title %}Symfony catalog{% endblock %}
+{% block title %}{{ 'symfony catalog' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
+    <h1>{{ 'product index' | trans }}</h1>
 
     {{ include('product/_product_index_table.html.twig') }}
 
-    <a href="{{ path('product_new') }}">Create new</a>
+    <a href="{{ path('product_new') }}">{{ 'create new' | trans }}</a>
 {% endblock %}

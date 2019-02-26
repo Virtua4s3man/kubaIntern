@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/product")
@@ -31,7 +32,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/new", name="product_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TranslatorInterface $translator): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
@@ -44,9 +45,8 @@ class ProductController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Product has been added"
+                $translator->trans("product has been added")
             );
-
 
             return $this->redirectToRoute('product_index');
         }
@@ -73,7 +73,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/edit", name="product_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Product $product, ProductLogger $logger): Response
+    public function edit(Request $request, Product $product, ProductLogger $logger, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -83,7 +83,7 @@ class ProductController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Product has been updated"
+                $translator->trans("product has been updated")
             );
 
             $logger->logUpdated($product);
@@ -102,7 +102,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Product $product, ProductLogger $logger): Response
+    public function delete(Request $request, Product $product, ProductLogger $logger, TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $logger->logDeleted($product);
@@ -113,7 +113,7 @@ class ProductController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Product has been deleted"
+                $translator->trans("product has been deleted")
             );
         }
 

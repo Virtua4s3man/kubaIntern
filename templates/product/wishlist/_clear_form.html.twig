@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('wishlist_clear') }}">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('clear') }}">
-    <button class="btn btn-success">Clear wishlist</button>
+    <button class="btn btn-success">{{ 'clear wishlist' | trans }}</button>
 </form>
