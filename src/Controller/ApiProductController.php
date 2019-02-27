@@ -78,9 +78,7 @@ class ApiProductController extends AbstractController
      */
     public function edit(Product $product): JsonResponse
     {
-//        return $this->render('api_product/index.html.twig', [
-//            'controller_name' => 'ApiProductController',
-//        ]);
+        //todo zrobic
     }
 
 
@@ -89,8 +87,6 @@ class ApiProductController extends AbstractController
      */
     public function delete(Product $product): JsonResponse
     {
-//        return $this->render('api_product/index.html.twig', [
-//            'controller_name' => 'ApiProductController',
-//        ]);
+        //todo zrobic
     }
 }
