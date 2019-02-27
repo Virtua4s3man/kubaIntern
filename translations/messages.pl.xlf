@@ -167,11 +167,11 @@
       </trans-unit>
       <trans-unit id="product has been updated" resname="product has been updated">
         <source>product has been updated</source>
-        <target>product has been updated</target>
+        <target>produkt został zedytowany</target>
       </trans-unit>
       <trans-unit id="product has been deleted" resname="product has been deleted">
         <source>product has been deleted</source>
-        <target>produkt został dodany</target>
+        <target>produkt został skasowany</target>
       </trans-unit>
       <trans-unit id="save" resname="save">
         <source>save</source>
