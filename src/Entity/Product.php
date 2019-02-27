@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -15,17 +16,21 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"rest"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\Length(min=3, max=64)
-        */
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
+     * @Groups({"rest"})
+    */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      * @Assert\Length(max=255)
      */
     private $description;

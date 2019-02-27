@@ -22,12 +22,14 @@ class ProductCategory
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      * @Assert\Length(max=64)
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      * @Assert\Length(max=255)
      */
     private $description;
