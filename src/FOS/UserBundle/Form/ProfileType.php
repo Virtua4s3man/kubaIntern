@@ -6,21 +6,31 @@
  * Time: 10:25
  */
 
-namespace App\Form;
+namespace App\FOS\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('locale');
+        $builder->add(
+            'locale',
+            ChoiceType::class,
+            [
+                'choices' => [
+                    'EN' => 'en',
+                    'PL' => 'pl',
+                ],
+            ]
+        );
     }
 
     public function getParent()
     {
-        return 'FosUserBundleFormTypeProfileFormType';
+        return 'FOS\UserBundle\Form\Type\ProfileFormType';
     }
 
     public function getBlockPrefix()

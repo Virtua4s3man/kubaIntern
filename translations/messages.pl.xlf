@@ -177,6 +177,10 @@
         <source>save</source>
         <target>zapisz</target>
       </trans-unit>
+      <trans-unit id="Locale" resname="Locale">
+        <source>Locale</source>
+        <target>język</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

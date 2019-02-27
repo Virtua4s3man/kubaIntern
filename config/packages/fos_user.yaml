@@ -5,3 +5,9 @@ fos_user:
   from_email:
     address: "intern4@wearevirtua.com"
     sender_name: "intern4@wearevirtua.com"
+  registration:
+    form:
+      type: App\FOS\UserBundle\Form\RegistrationType
+  profile:
+    form:
+      type: App\FOS\UserBundle\Form\ProfileType
