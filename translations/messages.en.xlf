@@ -2,10 +2,182 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="symfony_is_great">
-                <source>Symfony is great</source>
-                <target>J'aime Symfony</target>
-            </trans-unit>
-        </body>
-    </file>
+        <trans-unit id="KA1Eqx6" resname="welcome">
+            <source>welcome</source>
+            <target>welcome</target>
+        </trans-unit>
+        <trans-unit id="1c7v5F7" resname="now is">
+            <source>now is</source>
+            <target>now is</target>
+        </trans-unit>
+        <trans-unit id="SVPHkFO" resname="product category">
+            <source>product category</source>
+            <target>product category</target>
+        </trans-unit>
+        <trans-unit id="pWFFJwz" resname="id">
+            <source>id</source>
+            <target>id</target>
+        </trans-unit>
+        <trans-unit id="gqNTf.D" resname="name">
+            <source>name</source>
+            <target>name</target>
+        </trans-unit>
+        <trans-unit id="yQRveje" resname="description">
+            <source>description</source>
+            <target>description</target>
+        </trans-unit>
+        <trans-unit id="HCJivOb" resname="creation date">
+            <source>creation date</source>
+            <target>creation date</target>
+        </trans-unit>
+        <trans-unit id="XGm_pjT" resname="modification date">
+            <source>modification date</source>
+            <target>modification date</target>
+        </trans-unit>
+        <trans-unit id="U0M9PNE" resname="back to list">
+            <source>back to list</source>
+            <target>back to list</target>
+        </trans-unit>
+        <trans-unit id="JiEhxTc" resname="edit">
+            <source>edit</source>
+            <target>edit</target>
+        </trans-unit>
+        <trans-unit id="W6VywOy" resname="products in category">
+            <source>products in category</source>
+            <target>products in category</target>
+        </trans-unit>
+        <trans-unit id="qHkhV8t" resname="product">
+            <source>product</source>
+            <target>product</target>
+        </trans-unit>
+        <trans-unit id="7bLNO3T" resname="category">
+            <source>category</source>
+            <target>category</target>
+        </trans-unit>
+        <trans-unit id="YZdZVQP" resname="delete">
+            <source>delete</source>
+            <target>delete</target>
+        </trans-unit>
+        <trans-unit id="Ph9LINa" resname="edit product category">
+            <source>edit product category</source>
+            <target>edit product category</target>
+        </trans-unit>
+        <trans-unit id="Ltohzbo" resname="new product category">
+            <source>new product category</source>
+            <target>new product category</target>
+        </trans-unit>
+        <trans-unit id="q0clsXi" resname="create new product category">
+            <source>create new product category</source>
+            <target>create new product category</target>
+        </trans-unit>
+        <trans-unit id="piFuoD5" resname="categories">
+            <source>categories</source>
+            <target>categories</target>
+        </trans-unit>
+        <trans-unit id="aOJ234j" resname="product category index">
+            <source>product category index</source>
+            <target>product category index</target>
+        </trans-unit>
+        <trans-unit id="Kw3N1AA" resname="actions">
+            <source>actions</source>
+            <target>actions</target>
+        </trans-unit>
+        <trans-unit id="HGMzUJ3" resname="show">
+            <source>show</source>
+            <target>show</target>
+        </trans-unit>
+        <trans-unit id="D5lam8." resname="no records found">
+            <source>no records found</source>
+            <target>no records found</target>
+        </trans-unit>
+        <trans-unit id="5gd8I34" resname="create new">
+            <source>create new</source>
+            <target>create new</target>
+        </trans-unit>
+        <trans-unit id="REE8PZe" resname="Are you sure you want to delete this item?">
+            <source>Are you sure you want to delete this item?</source>
+            <target>Are you sure you want to delete this item?</target>
+        </trans-unit>
+        <trans-unit id="DoIPOho" resname="edit product">
+            <source>edit product</source>
+            <target>edit product</target>
+        </trans-unit>
+        <trans-unit id="ED_U31L" resname="new product">
+            <source>new product</source>
+            <target>new product</target>
+        </trans-unit>
+        <trans-unit id="IbKPdm1" resname="create new product">
+            <source>create new product</source>
+            <target>create new product</target>
+        </trans-unit>
+        <trans-unit id="yDgCmHa" resname="symfony catalog">
+            <source>symfony catalog</source>
+            <target>symfony catalog</target>
+        </trans-unit>
+        <trans-unit id="RpIBtT1" resname="product index">
+            <source>product index</source>
+            <target>product index</target>
+        </trans-unit>
+        <trans-unit id="jZOHsT0" resname="add to wishlist">
+            <source>add to wishlist</source>
+            <target>add to wishlist</target>
+        </trans-unit>
+        <trans-unit id="hKqk8iY" resname="delete from wishlist">
+            <source>delete from wishlist</source>
+            <target>delete from wishlist</target>
+        </trans-unit>
+        <trans-unit id="MtTUR.J" resname="clear wishlist">
+            <source>clear wishlist</source>
+            <target>clear wishlist</target>
+        </trans-unit>
+        <trans-unit id="70PxAGK" resname="kubaIntern">
+            <source>kubaIntern</source>
+            <target>kubaIntern</target>
+        </trans-unit>
+        <trans-unit id="0WqApD1" resname="main page">
+            <source>main page</source>
+            <target>main page</target>
+        </trans-unit>
+        <trans-unit id="EJAaHDL" resname="(current)">
+            <source>(current)</source>
+            <target>(current)</target>
+        </trans-unit>
+        <trans-unit id="can not remove category containing products" resname="can not remove category containing products">
+            <source>can not remove category containing products</source>
+            <target>can not remove category containing products</target>
+        </trans-unit>
+        <trans-unit id="category has been deleted" resname="category has been deleted">
+            <source>category has been deleted</source>
+            <target>category has been deleted</target>
+        </trans-unit>
+        <trans-unit id="category has been added" resname="category has been added">
+            <source>category has been added</source>
+            <target>category has been added</target>
+        </trans-unit>
+        <trans-unit id="category has been updated" resname="category has been updated">
+            <source>category has been updated</source>
+            <target>category has been updated</target>
+        </trans-unit>
+        <trans-unit id="product has been added" resname="product has been added">
+            <source>product has been added</source>
+            <target>product has been added</target>
+        </trans-unit>
+        <trans-unit id="product has been updated" resname="product has been updated">
+            <source>product has been updated</source>
+            <target>product has been updated</target>
+        </trans-unit>
+        <trans-unit id="product has been deleted" resname="product has been deleted">
+            <source>product has been deleted</source>
+            <target>product has been deleted</target>
+        </trans-unit>
+        <trans-unit id="save" resname="save">
+            <source>save</source>
+            <target>save</target>
+        </trans-unit>
+        <trans-unit id="Locale" resname="Locale">
+            <source>Locale</source>
+            <target>Locale</target>
+        </trans-unit>
+    </body>
+</file>
 </xliff>
