@@ -27,7 +27,7 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     App\FOS\UserBundle\EventListener\UserLocaleSubscriber:
-        tags: [{name: kernel.event_subscriber }]
+        tags: [{ name: kernel.event_subscriber }]
     app.form.registration:
         class: App\FOS\UserBundle\Form\RegistrationType
         tags:
