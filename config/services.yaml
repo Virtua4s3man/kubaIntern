@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'pl'
+    locale: 'en'
 
 services:
     # default configuration for services in *this* file
@@ -27,7 +27,7 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     App\FOS\UserBundle\EventListener\UserLocaleSubscriber:
-        tags: [{name: kernel.event_subscriber, event: }]
+        tags: [{name: kernel.event_subscriber }]
     app.form.registration:
         class: App\FOS\UserBundle\Form\RegistrationType
         tags:

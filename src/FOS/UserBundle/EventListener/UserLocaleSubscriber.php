@@ -8,6 +8,8 @@
 
 namespace App\FOS\UserBundle\EventListener;
 
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -34,10 +36,18 @@ class UserLocaleSubscriber implements EventSubscriberInterface
         }
     }
 
+    public function onProfileEditSuccess(FormEvent $event)
+    {
+        $locale = $event->getForm()->getData()->getLocale();
+        if (null !== $locale) {
+            $this->session->set('_locale', $locale);
+        }
+    }
+
     public function onKernelRequest(GetResponseEvent $event)
     {
         $locale = $this->session->get('_locale');
-        if ($locale == 'pl' || $locale == 'en') {
+        if (null !== $locale) {
             $event->getRequest()->setLocale($locale);
         }
     }
@@ -46,6 +56,7 @@ class UserLocaleSubscriber implements EventSubscriberInterface
     {
         return [
             SecurityEvents::INTERACTIVE_LOGIN => 'onInteractiveLogin',
+            FOSUserEvents::PROFILE_EDIT_SUCCESS => 'onProfileEditSuccess',
             KernelEvents::REQUEST => 'onKernelRequest',
         ];
     }
