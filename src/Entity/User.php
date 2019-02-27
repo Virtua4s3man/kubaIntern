@@ -33,17 +33,17 @@ class User extends BaseUser
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
 
     /**
-     * @param mixed $locale
+     * @param string $locale
      */
-    public function setLocale($locale): void
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
     }

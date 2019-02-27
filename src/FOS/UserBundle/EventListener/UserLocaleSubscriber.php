@@ -17,6 +17,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 
+/**
+ * Class UserLocaleSubscriber
+ * Used to handle setting locale in session, and
+ * from session to request locale
+ */
 class UserLocaleSubscriber implements EventSubscriberInterface
 {
     private $session;
