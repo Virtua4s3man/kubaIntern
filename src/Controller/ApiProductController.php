@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Utils\ProductLogger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -46,20 +44,20 @@ class ApiProductController extends AbstractController
         $product = $serializer->deserialize($request->getContent(), Product::class, 'json');
         $errors = $validator->validate($product);
 
-        if (count($errors) > 0) {
+        if (count($errors) === 0) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+
             return new JsonResponse(
-                $serializer->serialize($errors, 'json'),
-                Response::HTTP_BAD_REQUEST
+                'product created',
+                Response::HTTP_CREATED
             );
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($product);
-        $em->flush();
-
         return new JsonResponse(
-            'product created',
-            Response::HTTP_CREATED
+            $serializer->serialize($errors, 'json'),
+            Response::HTTP_BAD_REQUEST
         );
     }
 
@@ -93,7 +91,7 @@ class ApiProductController extends AbstractController
             ['object_to_populate' => $product]
         );
         $errors = $validator->validate($product);
-        if (count($errors) == 0) {
+        if (count($errors) === 0) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
