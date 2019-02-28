@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductCategoryRepository")
@@ -17,18 +18,21 @@ class ProductCategory
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"index", "catShow"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\Length(max=64)
+     * @Groups({"index", "catShow"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
+     * @Groups({"catShow"})
      */
     private $description;
 
@@ -36,6 +40,7 @@ class ProductCategory
      * @ORM\Column(type="datetime")
      * @Assert\Type("\DateTime")
      * @Gedmo\Timestampable(on="create")
+     * @Groups({"catShow"})
      */
     private $creationDate;
 
@@ -43,11 +48,13 @@ class ProductCategory
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      * @Assert\Type("\DateTime")
+     * @Groups({"catShow"})
      */
     private $modificationDate;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
+     * @Groups({"catShow"})
      */
     private $products;
 
