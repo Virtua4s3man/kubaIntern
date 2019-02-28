@@ -3,15 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\ProductCategory;
-use App\Form\ProductCategoryType;
 use App\Repository\ProductCategoryRepository;
 use App\Utils\ProductLogger;
-use Entity\Category;
-use Entity\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -44,24 +40,24 @@ class ApiCategoryController extends AbstractController
         SerializerInterface $serializer,
         ProductCategoryRepository $categoryRepository,
         ValidatorInterface $validator
-    ): Response {
+    ): JsonResponse {
         $category = $serializer->deserialize($request->getContent(), ProductCategory::class, 'json');
         $errors = $validator->validate($category);
 
-        if (count($errors) > 0) {
-            return new Response(
-                '',
-                Response::HTTP_BAD_REQUEST
+        if (count($errors) === 0) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            return new JsonResponse(
+                $serialized = $serializer->serialize($category, 'json', ['groups' => 'catShow']),
+                JsonResponse::HTTP_CREATED
             );
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($category);
-        $em->flush();
-
-        return new Response(
-            '',
-            Response::HTTP_CREATED
+        return new JsonResponse(
+            $serializer->serialize($errors, 'json'),
+            JsonResponse::HTTP_BAD_REQUEST
         );
     }
 
@@ -84,29 +80,33 @@ class ApiCategoryController extends AbstractController
     public function edit(
         ProductCategory $productCategory,
         Request $request,
+        ValidatorInterface $validator,
         SerializerInterface $serializer
-    ): Response {
-        $form = $this->createForm(ProductCategoryType::class, $productCategory, ['csrf_protection' => false]);
-        $form->submit(json_decode($request->getContent(), true));
+    ): JsonResponse {
+        $serializer->deserialize(
+            $request->getContent(),
+            ProductCategory::class,
+            'json',
+            ['object_to_populate' => $productCategory]
+        );
 
-        if ($form->isValid()) {
-            $editedProduct = $form->getData();
+        $errors = $validator->validate($productCategory);
+        if (0 === count($errors)) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($editedProduct);
+            $em->persist($productCategory);
             $em->flush();
 
-            return new Response(
-                '',
-                Response::HTTP_CREATED
+            return new JsonResponse(
+                $serializer->serialize($productCategory, 'json'),
+                JsonResponse::HTTP_CREATED
             );
         }
 
-        return new Response(
-            '',
-            Response::HTTP_BAD_REQUEST
+        return new JsonResponse(
+            $serializer->serialize($errors, 'json'),
+            JsonResponse::HTTP_BAD_REQUEST
         );
     }
-
 
     /**
      * @Route("/{id<\d+>}", name="api_category_delete", methods={"DELETE"})
@@ -115,11 +115,11 @@ class ApiCategoryController extends AbstractController
         ProductCategory $productCategory,
         ProductLogger $logger,
         TranslatorInterface $translator
-    ): Response {
+    ): JsonResponse {
         if ($productCategory->hasProducts()) {
-            return new Response(
+            return new JsonResponse(
                 $translator->trans("can not remove category containing products"),
-                Response::HTTP_BAD_REQUEST
+                JsonResponse::HTTP_BAD_REQUEST
             );
         }
 
@@ -127,9 +127,9 @@ class ApiCategoryController extends AbstractController
         $em->remove($productCategory);
         $em->flush();
 
-        return new Response(
-            '',
-            Response::HTTP_CREATED
+        return new JsonResponse(
+            'category deleted',
+            JsonResponse::HTTP_CREATED
         );
     }
 }
