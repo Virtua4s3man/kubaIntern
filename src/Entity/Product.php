@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -16,20 +17,23 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"catShow"})
+     * @Groups({"catShow", "index", "prodShow"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\Length(min=3, max=64)
-     * @Groups({"catShow"})
+     * @Groups({"catShow", "index", "prodShow"})
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
     */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      * @Assert\Length(max=255)
+     * @Groups({"prodShow"})
      */
     private $description;
 
@@ -37,6 +41,7 @@ class Product
      * @ORM\Column(type="datetime")
      * @Assert\Type("\DateTime")
      * @Gedmo\Timestampable(on="create")
+     * @Groups({"prodShow"})
      */
     private $creationDate;
 
@@ -44,11 +49,13 @@ class Product
      * @ORM\Column(type="datetime")
      * @Assert\Type("\DateTime")
      * @Gedmo\Timestampable(on="update")
+     * @Groups({"prodShow"})
      */
     private $modificationDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ProductCategory", inversedBy="products")
+     * @Groups("prodShow")
      */
     private $category;
 

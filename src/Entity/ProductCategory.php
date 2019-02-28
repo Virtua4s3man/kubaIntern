@@ -18,19 +18,21 @@ class ProductCategory
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"index", "catShow"})
+     * @Groups({"prodShow", "index", "catShow"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      * @Assert\Length(max=64)
-     * @Groups({"index", "catShow"})
+     * @Groups({"prodShow", "index", "catShow"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      * @Assert\Length(max=255)
      * @Groups({"catShow"})
      */
