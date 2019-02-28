@@ -17,15 +17,15 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"index", "prodShow"})
+     * @Groups({"catShow", "index", "prodShow"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\Length(min=3, max=64)
+     * @Groups({"catShow", "index", "prodShow"})
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
-     * @Groups({"index", "prodShow"})
     */
     private $name;
 

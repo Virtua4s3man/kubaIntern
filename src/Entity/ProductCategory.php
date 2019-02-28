@@ -18,7 +18,7 @@ class ProductCategory
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("prodShow")
+     * @Groups({"prodShow", "index", "catShow"})
      */
     private $id;
 
@@ -26,7 +26,7 @@ class ProductCategory
      * @ORM\Column(type="string", length=64)
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      * @Assert\Length(max=64)
-     * @Groups("prodShow")
+     * @Groups({"prodShow", "index", "catShow"})
      */
     private $name;
 
@@ -34,6 +34,7 @@ class ProductCategory
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      * @Assert\Length(max=255)
+     * @Groups({"catShow"})
      */
     private $description;
 
@@ -41,6 +42,7 @@ class ProductCategory
      * @ORM\Column(type="datetime")
      * @Assert\Type("\DateTime")
      * @Gedmo\Timestampable(on="create")
+     * @Groups({"catShow"})
      */
     private $creationDate;
 
@@ -48,11 +50,13 @@ class ProductCategory
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      * @Assert\Type("\DateTime")
+     * @Groups({"catShow"})
      */
     private $modificationDate;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
+     * @Groups({"catShow"})
      */
     private $products;
 
