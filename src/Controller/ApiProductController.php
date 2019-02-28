@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Utils\ProductLogger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,7 +63,7 @@ class ApiProductController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="api_product_show", methods={"POST"})
+     * @Route("/{id<\d+>}", name="api_product_show", methods={"POST"})
      */
     public function show(
         Product $product,
@@ -74,19 +76,52 @@ class ApiProductController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit}", name="api_product_edit", methods={"POST"})
+     * @Route("/{id<\d+>}/edit", name="api_product_edit", methods={"POST"})
      */
-    public function edit(Product $product): JsonResponse
-    {
-        //todo zrobic
+    public function edit(
+        Product $product,
+        Request $request,
+        SerializerInterface $serializer,
+        ProductLogger $logger
+    ): Response {
+        $form = $this->createForm(ProductType::class, $product, ['csrf_protection' => false]);
+        $form->submit(json_decode($request->getContent(), true));
+
+        if ($form->isValid()) {
+            $editedProduct = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($editedProduct);
+            $em->flush();
+
+            $logger->logUpdated($editedProduct);
+
+            return new Response(
+                '',
+                Response::HTTP_CREATED
+            );
+        }
+
+        return new Response(
+            '',
+            Response::HTTP_BAD_REQUEST
+        );
     }
 
 
     /**
-     * @Route("/delete", name="api_product_delete", methods={"DELETE"})
+     * @Route("/{id<\d+>}", name="api_product_delete", methods={"DELETE"})
      */
-    public function delete(Product $product): JsonResponse
+    public function delete(Product $product, ProductLogger $logger): Response
     {
-        //todo zrobic
+        $logger->logDeleted($product);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($product);
+        $em->flush();
+
+        return new Response(
+            '',
+            Response::HTTP_CREATED
+        );
     }
 }
