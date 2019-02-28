@@ -50,8 +50,7 @@ class ApiProductController extends AbstractController
             $em->flush();
 
             return new JsonResponse(
-                'product created',
-                Response::HTTP_CREATED
+                $serialized = $serializer->serialize($product, 'json', ['groups' => 'prodShow'])
             );
         }
 
@@ -99,8 +98,7 @@ class ApiProductController extends AbstractController
             $logger->logUpdated($product);
 
             return new JsonResponse(
-                'product updated',
-                Response::HTTP_CREATED
+                $serialized = $serializer->serialize($product, 'json', ['groups' => 'prodShow'])
             );
         }
 
