@@ -45,7 +45,7 @@ class ApiCategoryController extends AbstractController
         ProductCategoryRepository $categoryRepository,
         ValidatorInterface $validator
     ): Response {
-        $category = $serializer->deserialize($request->getContent(), Category::class, 'json');
+        $category = $serializer->deserialize($request->getContent(), ProductCategory::class, 'json');
         $errors = $validator->validate($category);
 
         if (count($errors) > 0) {
