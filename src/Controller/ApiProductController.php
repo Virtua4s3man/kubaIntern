@@ -29,7 +29,7 @@ class ApiProductController extends AbstractController
     ): JsonResponse {
 
         return JsonResponse::fromJsonString(
-            $serialized = $serializer->serialize($productRepository->findAll(), 'json', ['groups' => 'rest'])
+            $serialized = $serializer->serialize($productRepository->findAll(), 'json', ['groups' => 'index'])
         );
     }
 
@@ -71,7 +71,7 @@ class ApiProductController extends AbstractController
     ): JsonResponse {
 
         return JsonResponse::fromJsonString(
-            $serialized = $serializer->serialize($product, 'json', ['groups' => 'rest'])
+            $serialized = $serializer->serialize($product, 'json', ['groups' => 'prodShow'])
         );
     }
 

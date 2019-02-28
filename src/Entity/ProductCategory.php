@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductCategoryRepository")
@@ -17,6 +18,7 @@ class ProductCategory
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("prodShow")
      */
     private $id;
 
@@ -24,6 +26,7 @@ class ProductCategory
      * @ORM\Column(type="string", length=64)
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      * @Assert\Length(max=64)
+     * @Groups("prodShow")
      */
     private $name;
 
