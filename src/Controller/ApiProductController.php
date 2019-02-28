@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -41,13 +42,13 @@ class ApiProductController extends AbstractController
         SerializerInterface $serializer,
         ProductRepository $productRepository,
         ValidatorInterface $validator
-    ): Response {
+    ): JsonResponse {
         $product = $serializer->deserialize($request->getContent(), Product::class, 'json');
         $errors = $validator->validate($product);
 
         if (count($errors) > 0) {
-            return new Response(
-                '',
+            return new JsonResponse(
+                $serializer->serialize($errors, 'json'),
                 Response::HTTP_BAD_REQUEST
             );
         }
@@ -56,8 +57,8 @@ class ApiProductController extends AbstractController
         $em->persist($product);
         $em->flush();
 
-        return new Response(
-            '',
+        return new JsonResponse(
+            'product created',
             Response::HTTP_CREATED
         );
     }
@@ -82,27 +83,31 @@ class ApiProductController extends AbstractController
         Product $product,
         Request $request,
         SerializerInterface $serializer,
+        ValidatorInterface $validator,
         ProductLogger $logger
-    ): Response {
-        $form = $this->createForm(ProductType::class, $product, ['csrf_protection' => false]);
-        $form->submit(json_decode($request->getContent(), true));
-
-        if ($form->isValid()) {
-            $editedProduct = $form->getData();
+    ): JsonResponse {
+        $serializer->deserialize(
+            $request->getContent(),
+            Product::class,
+            'json',
+            ['object_to_populate' => $product]
+        );
+        $errors = $validator->validate($product);
+        if (count($errors) == 0) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($editedProduct);
+            $em->persist($product);
             $em->flush();
 
-            $logger->logUpdated($editedProduct);
+            $logger->logUpdated($product);
 
-            return new Response(
-                '',
+            return new JsonResponse(
+                'product updated',
                 Response::HTTP_CREATED
             );
         }
 
-        return new Response(
-            '',
+        return new JsonResponse(
+            $serializer->serialize($errors, 'json'),
             Response::HTTP_BAD_REQUEST
         );
     }
@@ -120,7 +125,7 @@ class ApiProductController extends AbstractController
         $em->flush();
 
         return new Response(
-            '',
+            'product deleted',
             Response::HTTP_CREATED
         );
     }
