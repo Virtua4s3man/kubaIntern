@@ -22,6 +22,10 @@ class ProductCategoryController extends AbstractController
      */
     public function index(ProductCategoryRepository $productCategoryRepository): Response
     {
+        dump(
+            \DateTime::createFromFormat('Y-m-d H:i:s', "2019-02-28 14:44:16")
+        );
+
         return $this->render('product_category/index.html.twig', [
             'product_categories' => $productCategoryRepository->findAll(),
         ]);
@@ -96,8 +100,11 @@ class ProductCategoryController extends AbstractController
     /**
      * @Route("/{id}", name="product_category_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, ProductCategory $productCategory, TranslatorInterface $translator): Response
-    {
+    public function delete(
+        Request $request,
+        ProductCategory $productCategory,
+        TranslatorInterface $translator
+    ): Response {
         if ($productCategory->hasProducts()) {
             $this->addFlash(
                 'warning',
