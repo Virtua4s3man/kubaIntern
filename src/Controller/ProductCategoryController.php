@@ -22,10 +22,6 @@ class ProductCategoryController extends AbstractController
      */
     public function index(ProductCategoryRepository $productCategoryRepository): Response
     {
-        dump(
-            \DateTime::createFromFormat('Y-m-d H:i:s', "2019-02-28 14:44:16")
-        );
-
         return $this->render('product_category/index.html.twig', [
             'product_categories' => $productCategoryRepository->findAll(),
         ]);

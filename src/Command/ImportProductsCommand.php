@@ -20,18 +20,12 @@ class ImportProductsCommand extends Command
     protected static $defaultName = 'app:import:products';
 
     /**
-     * @var ProductRepository
-     */
-    private $repository;
-
-    /**
      * @var EntityManagerInterface
      */
     private $em;
 
-    public function __construct(ProductRepository $repository, EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->repository = $repository;
         $this->em = $em;
         parent::__construct();
     }
@@ -50,28 +44,30 @@ class ImportProductsCommand extends Command
 
         $row = 1;
         if (($handle = fopen($filePath, "r")) !== false) {
-            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-                if ($row !== 1) {
-                    $product = new Product();
-                    $product->setName($data[1]);
-                    $product->setDescription($data[2]);
-                    $product->setCreationDate(
-                        \DateTime::createFromFormat('Y-m-d H:i:s', $data[3])
-                    );
-                    $product->setModificationDate(
-                        \DateTime::createFromFormat('Y-m-d H:i:s', $data[4])
-                    );
 
-                    $category = new ProductCategory();
-                    $category->setName($data[5]);
-                    $this->em->persist($category);
-
-                    $product->setCategory($category);
-                    $this->em->persist($product);
-                }
-                $row++;
-            }
-            $this->em->flush();
+            $io->error();
+//            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
+//                if ($row !== 1) {
+//                    $product = new Product();
+//                    $product->setName($data[1]);
+//                    $product->setDescription($data[2]);
+//                    $product->setCreationDate(
+//                        \DateTime::createFromFormat('Y-m-d H:i:s', $data[3])
+//                    );
+//                    $product->setModificationDate(
+//                        \DateTime::createFromFormat('Y-m-d H:i:s', $data[4])
+//                    );
+//
+//                    $category = new ProductCategory();
+//                    $category->setName($data[5]);
+//                    $this->em->persist($category);
+//
+//                    $product->setCategory($category);
+//                    $this->em->persist($product);
+//                }
+//                $row++;
+//            }
+//            $this->em->flush();
             fclose($handle);
         }
 
