@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -122,5 +121,10 @@ class Product
         $this->category = $category;
 
         return $this;
+    }
+
+    public static function getHeaders()
+    {
+        return array_keys(get_class_vars(__CLASS__));
     }
 }
