@@ -4,23 +4,31 @@ namespace App\Command;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
-use App\Utils\ExportEntityHelper;
+use App\Utils\ExportHelpers\ExportProductHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class ExportProductsCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:export:products';
 
+    /**
+     * @var ProductRepository
+     */
     private $repository;
+
+    /**
+     * @var ExportProductHelper
+     */
     private $exportHelper;
 
-    public function __construct(ProductRepository $repository, ExportEntityHelper $helper)
+    public function __construct(ProductRepository $repository, ExportProductHelper $helper)
     {
         $this->repository = $repository;
         $this->exportHelper = $helper;

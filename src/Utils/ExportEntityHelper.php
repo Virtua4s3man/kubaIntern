@@ -8,13 +8,17 @@
 
 namespace App\Utils;
 
-use App\Entity\ProductCategory;
 use Doctrine\Common\Persistence\Proxy;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ExportEntityHelper
+abstract class ExportEntityHelper
 {
+    /**
+     * @var array
+     */
+    protected $headers = [];
+
     /**
      * @var \ReflectionClass
      */
@@ -40,7 +44,9 @@ class ExportEntityHelper
 
     public function getTableHeaders(): array
     {
-        return array_column($this->reflection->getProperties(), 'name');
+        return 0 === count($this->headers) ?
+            array_column($this->reflection->getProperties(), 'name')
+            : $this->headers;
     }
 
     public function getTableRow($object): array
@@ -55,6 +61,16 @@ class ExportEntityHelper
         return $this->makeRow($object);
     }
 
+    protected function convert(&$value)
+    {
+        if (is_null($value)) {
+            $value = '';
+        }
+        if ($value instanceof \DateTime) {
+            $value = $value->format('Y-m-d H:i:s');
+        }
+    }
+
     private function makeRow($object): array
     {
         $output = [];
@@ -62,24 +78,14 @@ class ExportEntityHelper
         foreach ($headers as $property) {
             $getter = $this->makeGetter($property);
             $value = $object->$getter();
-//            todo ja bym to widział tak że zamiast tych ifów
-//            klasa powinna mieć array obiektów typu converters
-//            i każdy z nich powinien implementować export entity converter interface
-//            no i tutaj by było takie foreach $this->>converters as converter: converter->convert
-//            ale dużo pisania na 2 convertery więc się chyba nie opłaca na razie przynajmniej
-            if ($value instanceof \DateTime) {
-                $value = $value->format('Y-m-d H:i:s');
-            }
-            if ($value instanceof ProductCategory) {
-                $value = $value->getName();
-            }
+            $this->convert($value);
             $output[] = $value;
         }
 
         return $output;
     }
 
-    private function makeGetter(string $name)
+    private function makeGetter(string $name): string
     {
         $getter = 'get' . ucfirst($name);
         if (!$this->reflection->hasMethod($getter)) {

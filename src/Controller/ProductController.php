@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
-use App\Utils\ExportEntityHelper;
 use App\Utils\ProductLogger;
 use App\Utils\ProductWishlist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
