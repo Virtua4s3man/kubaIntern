@@ -73,8 +73,12 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/edit", name="product_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Product $product, ProductLogger $logger, TranslatorInterface $translator): Response
-    {
+    public function edit(
+        Request $request,
+        Product $product,
+        ProductLogger $logger,
+        TranslatorInterface $translator
+    ): Response {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
@@ -102,8 +106,12 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Product $product, ProductLogger $logger, TranslatorInterface $translator): Response
-    {
+    public function delete(
+        Request $request,
+        Product $product,
+        ProductLogger $logger,
+        TranslatorInterface $translator
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $logger->logDeleted($product);
 

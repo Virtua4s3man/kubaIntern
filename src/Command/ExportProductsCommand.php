@@ -35,7 +35,6 @@ class ExportProductsCommand extends Command
         parent::__construct();
     }
 
-
     protected function configure()
     {
         $this
