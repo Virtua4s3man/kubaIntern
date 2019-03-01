@@ -122,9 +122,4 @@ class Product
 
         return $this;
     }
-
-    public static function getHeaders()
-    {
-        return array_keys(get_class_vars(__CLASS__));
-    }
 }
