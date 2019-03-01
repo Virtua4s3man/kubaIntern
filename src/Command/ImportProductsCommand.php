@@ -2,9 +2,6 @@
 
 namespace App\Command;
 
-use App\Entity\Product;
-use App\Entity\ProductCategory;
-use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -45,7 +42,7 @@ class ImportProductsCommand extends Command
         $row = 1;
         if (($handle = fopen($filePath, "r")) !== false) {
 
-            $io->error();
+//            $io->error();
 //            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
 //                if ($row !== 1) {
 //                    $product = new Product();

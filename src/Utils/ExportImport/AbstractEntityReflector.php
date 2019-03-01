@@ -6,8 +6,9 @@
  * Time: 15:24
  */
 
-namespace App\Utils;
+namespace App\Utils\ExportImport;
 
+use Doctrine\ORM\EntityManagerInterface;
 
 abstract class AbstractEntityReflector
 {
@@ -34,7 +35,7 @@ abstract class AbstractEntityReflector
         $this->reflection = new \ReflectionClass($object);
     }
 
-    protected function getReflectionHeaders()
+    protected function getEntityProperties(): array
     {
         return array_column($this->reflection->getProperties(), 'name');
     }

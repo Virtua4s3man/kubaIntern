@@ -6,13 +6,15 @@
  * Time: 12:27
  */
 
-namespace App\Utils\ExportHelpers;
+namespace App\Utils\ExportImport\ExportHelpers;
 
 use App\Entity\ProductCategory;
-use App\Utils\ExportEntityHelper;
+use App\Utils\ExportImport\AbstractExportEntityHelper;
 
-class ExportProductHelper extends ExportEntityHelper
+class ExportProductHelper extends AbstractExportEntityHelper
 {
+    protected $headers = [ 'name', 'description', 'creationDate', 'modificationDate', 'category'];
+
     protected function convert(&$value)
     {
         parent::convert($value);

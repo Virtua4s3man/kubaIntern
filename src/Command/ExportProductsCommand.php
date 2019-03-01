@@ -4,7 +4,7 @@ namespace App\Command;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
-use App\Utils\ExportHelpers\ExportProductHelper;
+use App\Utils\ExportImport\ExportHelpers\ExportProductHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
