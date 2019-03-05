@@ -27,12 +27,12 @@ abstract class AbstractEntityReflector
         $this->em = $em;
     }
 
-    public function setReflectionClass($object)
+    public function setReflectionClass($entityClass)
     {
-        if (!$this->isEntity($object)) {
+        if (!$this->isEntity($entityClass)) {
             throw new \InvalidArgumentException('Argument must have /Entity Annotation');
         }
-        $this->reflection = new \ReflectionClass($object);
+        $this->reflection = new \ReflectionClass($entityClass);
     }
 
     protected function getEntityProperties(): array

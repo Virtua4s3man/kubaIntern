@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
+use App\Utils\ExportImport\ImportHelpers\ProductImportHelper;
+use App\Utils\ExportImport\ImportProductHelper;
 use App\Utils\ProductLogger;
 use App\Utils\ProductWishlist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,8 +24,12 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
-    public function index(ProductRepository $productRepository, ProductWishlist $wishlist): Response
+    public function index(ProductCategoryRepository $catRepo, ProductImportHelper $helper, ProductRepository $productRepository, ProductWishlist $wishlist): Response
     {
+//        todo remove
+        $helper->configureImport('/application/dono.csv', Product::class);
+        $helper->importData($productRepository, $catRepo);
+//        todo end
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
             'ids_on_wishlist' => $wishlist->getIdsOnWishlist(),

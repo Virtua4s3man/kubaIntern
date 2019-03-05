@@ -2,6 +2,8 @@
 
 namespace App\Command;
 
+use App\Entity\Product;
+use App\Utils\ExportImport\ImportProductHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,9 +23,15 @@ class ImportProductsCommand extends Command
      */
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var ImportProductHelper
+     */
+    private $helper;
+
+    public function __construct(ImportProductHelper $helper, EntityManagerInterface $em)
     {
         $this->em = $em;
+        $this->helper = $helper;
         parent::__construct();
     }
 
@@ -39,9 +47,13 @@ class ImportProductsCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $filePath = $input->getArgument('path');
 
-        $row = 1;
-        if (($handle = fopen($filePath, "r")) !== false) {
-
+        $this->helper->configureImport($filePath, Product::class);
+        $io->writeln(
+            var_dump($this->helper->makeEntity(['name' => 'cos', 'description' => 'cos']))
+        );
+//        $row = 1;
+//        if (($handle = fopen($filePath, "r")) !== false) {
+//
 //            $io->error();
 //            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
 //                if ($row !== 1) {
@@ -65,8 +77,8 @@ class ImportProductsCommand extends Command
 //                $row++;
 //            }
 //            $this->em->flush();
-            fclose($handle);
-        }
+//            fclose($handle);
+//        }
 
         $io->success(
             sprintf('Products successfully imported from %s', $filePath)

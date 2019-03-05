@@ -13,7 +13,7 @@ use App\Utils\ExportImport\AbstractExportEntityHelper;
 
 class ExportProductHelper extends AbstractExportEntityHelper
 {
-    protected $headers = [ 'name', 'description', 'creationDate', 'modificationDate', 'category'];
+    protected $headers = [ 'id', 'name', 'description', 'creationDate', 'modificationDate', 'category'];
 
     protected function convert(&$value)
     {
