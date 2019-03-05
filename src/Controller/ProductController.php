@@ -28,7 +28,7 @@ class ProductController extends AbstractController
     {
 //        todo remove
         $helper->configureImport('/application/dono.csv', Product::class);
-        $helper->importData($productRepository, $catRepo);
+        $helper->importData($this->getDoctrine()->getManager(), $productRepository, $catRepo);
 //        todo end
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),

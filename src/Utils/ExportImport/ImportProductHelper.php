@@ -8,8 +8,6 @@
 
 namespace App\Utils\ExportImport;
 
-use App\Entity\Product;
-
 class ImportProductHelper extends AbstractEntityReflector
 {
     /**
@@ -73,12 +71,6 @@ class ImportProductHelper extends AbstractEntityReflector
         return $headers;
     }
 
-//    protected function makeEntityObject(): Product
-//    {
-//        $entityClassName = $this->reflection->getName();
-//        return new $entityClassName();
-//    }
-//
     protected function makeSetter(string $name): string
     {
         $setter = 'set' . ucfirst($name);

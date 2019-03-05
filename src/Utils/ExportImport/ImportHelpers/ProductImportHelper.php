@@ -11,24 +11,37 @@ namespace App\Utils\ExportImport\ImportHelpers;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Repository\ProductCategoryRepository;
+use App\Repository\ProductRepository;
 use App\Utils\ExportImport\ImportProductHelper;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ProductImportHelper extends ImportProductHelper
 {
-
-    public function importData(EntityManagerInterface $em, ProductCategoryRepository $categoryRepository)
+    public function importData(EntityManagerInterface $em, ProductRepository $productRepository, ProductCategoryRepository $categoryRepository)
     {
         foreach ($this->generateNamedData() as $productData) {
-            $product = $this->makeEntity($productData, $categoryRepository);
-            $em->persist($product);
+            $product = $this->makeEntity(
+                $productData,
+                $productRepository,
+                $categoryRepository
+            );
+            if ($product) {
+                $em->persist($product);
+            }
+            dump($product);
         }
         $em->flush();
     }
 
-    private function makeEntity($productData, ProductCategoryRepository $categoryRepository): Product
-    {
-        $product = new Product();
+    private function makeEntity(
+        $productData,
+        ProductRepository $productRepository,
+        ProductCategoryRepository $categoryRepository
+    ): ?Product {
+        $product = $productRepository->find($productData['id']);
+        unset($productData['id']);
+        $product = $product ? : new Product();
+
         foreach ($productData as $key => $value) {
             if ('category' === $key and !empty($value)) {
                 $productCategory = $categoryRepository->findOneBy(['name' => $value]);
