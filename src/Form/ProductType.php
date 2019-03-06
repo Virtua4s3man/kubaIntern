@@ -25,7 +25,8 @@ class ProductType extends AbstractType
                     'choice_label' => 'name',
                     'label' => 'category'
                 ]
-            );
+            )
+            ->add('cover', ImageType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

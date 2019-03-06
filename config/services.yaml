@@ -42,6 +42,10 @@ services:
         arguments:
             $targetDirectory: '%image_directory%'
 
+    App\Form\ImageType:
+        arguments:
+            $imagePath: '%image_directory%'
+
     App\EventListener\ImageUploadListener:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
