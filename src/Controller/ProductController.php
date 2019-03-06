@@ -24,10 +24,6 @@ class ProductController extends AbstractController
      */
     public function index(ProductImportHelper $helper ,ProductRepository $productRepository, ProductWishlist $wishlist): Response
     {
-//        todo remove
-        $helper->configureImport('/application/dono.csv', Product::class);
-        $helper->importData();
-//        todo remove
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
             'ids_on_wishlist' => $wishlist->getIdsOnWishlist(),
