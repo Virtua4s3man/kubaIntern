@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
-use App\Utils\ExportImport\ImportHelpers\ProductImportHelper;
 use App\Utils\ProductLogger;
 use App\Utils\ProductWishlist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +21,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
-    public function index(ProductImportHelper $helper ,ProductRepository $productRepository, ProductWishlist $wishlist): Response
+    public function index(ProductRepository $productRepository, ProductWishlist $wishlist): Response
     {
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),

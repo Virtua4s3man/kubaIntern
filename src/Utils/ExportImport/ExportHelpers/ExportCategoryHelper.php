@@ -12,5 +12,5 @@ use App\Utils\ExportImport\AbstractExportEntityHelper;
 
 class ExportCategoryHelper extends AbstractExportEntityHelper
 {
-    protected $headers = ['name', 'description' , 'creationDate', 'modificationDate'];
+    protected $headers = ['id', 'name', 'description' , 'creationDate', 'modificationDate'];
 }
