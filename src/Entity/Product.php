@@ -58,6 +58,11 @@ class Product
      */
     private $category;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     */
+    private $cover;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +124,18 @@ class Product
     public function setCategory(?ProductCategory $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCover(): ?Image
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?Image $cover): self
+    {
+        $this->cover = $cover;
 
         return $this;
     }

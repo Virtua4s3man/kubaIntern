@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    image_directory: '%kernel.project_dir%/public/img'
 
 services:
     # default configuration for services in *this* file
@@ -36,3 +37,12 @@ services:
         class: App\FOS\UserBundle\Form\ProfileType
         tags:
             - { name: form.type, alias: app_user_profile }
+
+    App\Utils\FileUploader:
+        arguments:
+            $targetDirectory: '%image_directory%'
+
+    App\EventListener\ImageUploadListener:
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
