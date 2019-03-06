@@ -8,7 +8,6 @@
 
 namespace App\Form;
 
-
 use App\Entity\Image;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -18,7 +17,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageType extends FileType
 {
-
     private $imagePath;
 
     public function __construct($imagePath)

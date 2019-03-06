@@ -29,6 +29,11 @@ class Image
      */
     private $alt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="gallery")
+     */
+    private $product;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +59,18 @@ class Image
     public function setAlt(?string $alt): self
     {
         $this->alt = $alt;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }

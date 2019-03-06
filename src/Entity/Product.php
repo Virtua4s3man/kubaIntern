@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -62,6 +64,16 @@ class Product
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
      */
     private $cover;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="product")
+     */
+    private $gallery;
+
+    public function __construct()
+    {
+        $this->gallery = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -136,6 +148,37 @@ class Product
     public function setCover(?Image $cover): self
     {
         $this->cover = $cover;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getGallery(): Collection
+    {
+        return $this->gallery;
+    }
+
+    public function addGallery(Image $gallery): self
+    {
+        if (!$this->gallery->contains($gallery)) {
+            $this->gallery[] = $gallery;
+            $gallery->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGallery(Image $gallery): self
+    {
+        if ($this->gallery->contains($gallery)) {
+            $this->gallery->removeElement($gallery);
+            // set the owning side to null (unless already changed)
+            if ($gallery->getProduct() === $this) {
+                $gallery->setProduct(null);
+            }
+        }
 
         return $this;
     }

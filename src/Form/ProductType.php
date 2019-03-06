@@ -26,7 +26,8 @@ class ProductType extends AbstractType
                     'label' => 'category'
                 ]
             )
-            ->add('cover', ImageType::class);
+            ->add('cover', ImageType::class)
+            ->add('gallery', ImageType::class, ['multiple'=>true]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
