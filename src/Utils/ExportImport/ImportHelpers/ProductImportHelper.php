@@ -12,44 +12,57 @@ use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
-use App\Utils\ExportImport\ImportProductHelper;
+use App\Utils\ExportImport\AbastractImportEntityHelper;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ProductImportHelper extends ImportProductHelper
+class ProductImportHelper extends AbastractImportEntityHelper
 {
-    public function importData(EntityManagerInterface $em, ProductRepository $productRepository, ProductCategoryRepository $categoryRepository)
-    {
-        foreach ($this->generateNamedData() as $productData) {
-            $product = $this->makeEntity(
-                $productData,
-                $productRepository,
-                $categoryRepository
-            );
-            if ($product) {
-                $em->persist($product);
-            }
-            dump($product);
-        }
-        $em->flush();
-    }
+    /**
+     * @var EntityManagerInterface
+     */
+    protected $em;
 
-    private function makeEntity(
-        $productData,
+    /**
+     * @var ProductRepository
+     */
+    private $productRepository;
+
+    /**
+     * @var ProductCategoryRepository
+     */
+    private $categoryRepository;
+
+    public function __construct(
+        EntityManagerInterface $em,
         ProductRepository $productRepository,
         ProductCategoryRepository $categoryRepository
-    ): ?Product {
-        $product = $productRepository->find($productData['id']);
+    ) {
+        parent::__construct($em);
+        $this->productRepository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
+    }
+
+    public function importData()
+    {
+        foreach ($this->generateNamedData() as $productData) {
+            $product = $this->createProduct($productData);
+            if ($product) {
+                $this->em->persist($product);
+            }
+        }
+        $this->em->flush();
+    }
+
+    private function createProduct($productData): ?Product
+    {
+        $product = $this->makeOrFetchProduct($productData['id']);
         unset($productData['id']);
-        $product = $product ? : new Product();
 
         foreach ($productData as $key => $value) {
-            if ('category' === $key and !empty($value)) {
-                $productCategory = $categoryRepository->findOneBy(['name' => $value]);
-                if (null === $productCategory) {
-                    $productCategory = new ProductCategory();
-                    $productCategory->setName($value);
-                }
-                $product->setCategory($productCategory);
+            if ('category' === $key) {
+                $product->setCategory(
+                    $this->makeOrFetchProductCategory($value)
+                );
             } elseif ('modificationDate' === $key || 'creationDate' === $key) {
                 $setter = $this->makeSetter($key);
                 $product->$setter(\DateTime::createFromFormat('Y-m-d H:i:s', $value));
@@ -60,5 +73,28 @@ class ProductImportHelper extends ImportProductHelper
         }
 
         return $product;
+    }
+
+    private function makeOrFetchProduct(int $id): ?Product
+    {
+        $product = $this->productRepository->find($id);
+
+        return $product ? $product : new Product();
+    }
+
+    private function makeOrFetchProductCategory(string $name): ?ProductCategory
+    {
+        if (!empty($name)) {
+            $productCategory = $this->categoryRepository->findOneBy(['name' => $name]);
+            if (null === $productCategory) {
+                $productCategory = new ProductCategory();
+                $productCategory->setName($name);
+                $this->em->persist($productCategory);
+            }
+
+            return $productCategory;
+        }
+
+        return null;
     }
 }

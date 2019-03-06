@@ -3,7 +3,8 @@
 namespace App\Command;
 
 use App\Entity\Product;
-use App\Utils\ExportImport\ImportProductHelper;
+use App\Utils\ExportImport\AbastractImportEntityHelper;
+use App\Utils\ExportImport\ImportHelpers\ProductImportHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -24,11 +25,11 @@ class ImportProductsCommand extends Command
     private $em;
 
     /**
-     * @var ImportProductHelper
+     * @var AbastractImportEntityHelper
      */
     private $helper;
 
-    public function __construct(ImportProductHelper $helper, EntityManagerInterface $em)
+    public function __construct(ProductImportHelper $helper, EntityManagerInterface $em)
     {
         $this->em = $em;
         $this->helper = $helper;
@@ -48,37 +49,8 @@ class ImportProductsCommand extends Command
         $filePath = $input->getArgument('path');
 
         $this->helper->configureImport($filePath, Product::class);
-        $io->writeln(
-            var_dump($this->helper->makeEntity(['name' => 'cos', 'description' => 'cos']))
-        );
-//        $row = 1;
-//        if (($handle = fopen($filePath, "r")) !== false) {
-//
-//            $io->error();
-//            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-//                if ($row !== 1) {
-//                    $product = new Product();
-//                    $product->setName($data[1]);
-//                    $product->setDescription($data[2]);
-//                    $product->setCreationDate(
-//                        \DateTime::createFromFormat('Y-m-d H:i:s', $data[3])
-//                    );
-//                    $product->setModificationDate(
-//                        \DateTime::createFromFormat('Y-m-d H:i:s', $data[4])
-//                    );
-//
-//                    $category = new ProductCategory();
-//                    $category->setName($data[5]);
-//                    $this->em->persist($category);
-//
-//                    $product->setCategory($category);
-//                    $this->em->persist($product);
-//                }
-//                $row++;
-//            }
-//            $this->em->flush();
-//            fclose($handle);
-//        }
+        $this->helper->importData();
+
 
         $io->success(
             sprintf('Products successfully imported from %s', $filePath)

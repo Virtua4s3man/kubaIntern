@@ -8,7 +8,7 @@
 
 namespace App\Utils\ExportImport;
 
-class ImportProductHelper extends AbstractEntityReflector
+abstract class AbastractImportEntityHelper extends AbstractEntityReflector
 {
     /**
      * @var \SplFileObject
@@ -60,7 +60,6 @@ class ImportProductHelper extends AbstractEntityReflector
     {
         $this->splFile->rewind();
         $headers = $this->splFile->fgetcsv();
-        $this->splFile->rewind();
 
         if (! $this->headersAreValid($headers)) {
             throw new \InvalidArgumentException(
