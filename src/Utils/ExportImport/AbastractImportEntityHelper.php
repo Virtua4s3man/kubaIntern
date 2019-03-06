@@ -95,14 +95,14 @@ abstract class AbastractImportEntityHelper extends AbstractEntityReflector
         );
     }
 
-    private function getLinesCount()
+    private function getLinesCount(): int
     {
         $this->splFile->rewind();
         $this->splFile->seek($this->splFile->getSize());
         return $this->splFile->key();
     }
 
-    private function headersAreValid($headers)
+    private function headersAreValid($headers): bool
     {
         return count(array_diff($headers, $this->getEntityProperties())) === 0;
     }
