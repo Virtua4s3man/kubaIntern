@@ -60,16 +60,12 @@ class ProductImportHelper extends AbastractImportEntityHelper
 
         foreach ($productData as $key => $value) {
             if ('category' === $key) {
-                $product->setCategory(
-                    $this->makeOrFetchProductCategory($value)
-                );
+                $value = $this->makeOrFetchProductCategory($value);
             } elseif ('modificationDate' === $key || 'creationDate' === $key) {
-                $setter = $this->makeSetter($key);
-                $product->$setter(\DateTime::createFromFormat('Y-m-d H:i:s', $value));
-            } else {
-                $setter = $this->makeSetter($key);
-                $product->$setter($value);
+                $value = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
             }
+            $setter = $this->makeSetter($key);
+            $product->$setter($value);
         }
 
         return $product;
