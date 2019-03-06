@@ -51,12 +51,10 @@ class CategoryImportHelper extends AbastractImportEntityHelper
 
         foreach ($categoryData as $key => $value) {
             if ('modificationDate' === $key || 'creationDate' === $key) {
-                $setter = $this->makeSetter($key);
-                $category->$setter(\DateTime::createFromFormat('Y-m-d H:i:s', $value));
-            } else {
-                $setter = $this->makeSetter($key);
-                $category->$setter($value);
+                $value = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
             }
+            $setter = $this->makeSetter($key);
+            $category->$setter($value);
         }
 
         return $category;
