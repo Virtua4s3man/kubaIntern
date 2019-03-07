@@ -16,6 +16,17 @@
             <td>{{ product.id }}</td>
             <td>
                 {{ product.name }}
+
+                {% if product.cover != null %}
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <a href="/w3images/lights.jpg">
+                                <img class="img-fluid" src="{{ asset('img/' ~ product.cover.file) }}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+
                 {{include('product/wishlist/_add_or_remove_button.html.twig')}}
             </td>
             <td>{{ product.description }}</td>
