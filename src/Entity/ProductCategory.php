@@ -8,9 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductCategoryRepository")
+ * @UniqueEntity("name")
  */
 class ProductCategory
 {
@@ -23,7 +25,7 @@ class ProductCategory
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, unique=true)
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
      * @Assert\Length(max=64)
      * @Groups({"prodShow", "index", "catShow"})

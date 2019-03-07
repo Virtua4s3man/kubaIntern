@@ -96,8 +96,11 @@ class ProductCategoryController extends AbstractController
     /**
      * @Route("/{id}", name="product_category_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, ProductCategory $productCategory, TranslatorInterface $translator): Response
-    {
+    public function delete(
+        Request $request,
+        ProductCategory $productCategory,
+        TranslatorInterface $translator
+    ): Response {
         if ($productCategory->hasProducts()) {
             $this->addFlash(
                 'warning',

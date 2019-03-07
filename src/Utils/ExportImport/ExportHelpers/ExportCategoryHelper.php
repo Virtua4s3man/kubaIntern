@@ -6,11 +6,11 @@
  * Time: 12:27
  */
 
-namespace App\Utils\ExportHelpers;
+namespace App\Utils\ExportImport\ExportHelpers;
 
-use App\Utils\ExportEntityHelper;
+use App\Utils\ExportImport\AbstractExportEntityHelper;
 
-class ExportCategoryHelper extends ExportEntityHelper
+class ExportCategoryHelper extends AbstractExportEntityHelper
 {
     protected $headers = ['id', 'name', 'description' , 'creationDate', 'modificationDate'];
 }

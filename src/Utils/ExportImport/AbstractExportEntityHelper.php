@@ -6,46 +6,19 @@
  * Time: 08:13
  */
 
-namespace App\Utils;
+namespace App\Utils\ExportImport;
 
-use Doctrine\Common\Persistence\Proxy;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
-
-abstract class ExportEntityHelper
+abstract class AbstractExportEntityHelper extends AbstractEntityReflector
 {
     /**
      * @var array
      */
     protected $headers = [];
 
-    /**
-     * @var \ReflectionClass
-     */
-    private $reflection;
-
-    /**
-     * @var EntityManager
-     */
-    private $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
-
-    public function setReflectionClass($object)
-    {
-        if (!$this->isEntity($object)) {
-            throw new \InvalidArgumentException('Argument must have /Entity Annotation');
-        }
-        $this->reflection = new \ReflectionClass($object);
-    }
-
     public function getTableHeaders(): array
     {
         return 0 === count($this->headers) ?
-            array_column($this->reflection->getProperties(), 'name')
+            $this->getEntityProperties()
             : $this->headers;
     }
 
@@ -95,13 +68,5 @@ abstract class ExportEntityHelper
         }
 
         return $getter;
-    }
-
-    private function isEntity($class): bool
-    {
-        if (is_object($class)) {
-            $class = ($class instanceof Proxy) ? get_parent_class($class) : get_class($class);
-        }
-        return ! $this->em->getMetadataFactory()->isTransient($class);
     }
 }

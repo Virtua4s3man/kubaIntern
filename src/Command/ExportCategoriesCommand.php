@@ -4,7 +4,7 @@ namespace App\Command;
 
 use App\Entity\ProductCategory;
 use App\Repository\ProductCategoryRepository;
-use App\Utils\ExportHelpers\ExportCategoryHelper;
+use App\Utils\ExportImport\ExportHelpers\ExportCategoryHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
