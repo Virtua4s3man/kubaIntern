@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -126,6 +127,25 @@ class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('product_index');
+    }
+
+    /**
+     * @Route("/image/{id}", name="product_image_delete", methods={"DELETE"})
+     */
+    public function galleryImageDelete(Image $image, Request $request, TranslatorInterface $translator): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
+            $this->addFlash(
+                'success',
+                $translator->trans("gallery image has been deleted")
+            );
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($image);
+            $em->flush();
+        }
+
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
