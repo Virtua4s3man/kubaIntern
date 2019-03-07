@@ -18,6 +18,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageType extends FileType
 {
+    /**
+     * @var string $imagePath
+     */
     private $imagePath;
 
     public function __construct($imagePath)
