@@ -20,7 +20,9 @@ class Image
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
-     * @Assert\File(mimeTypes={"image/png", "image/jpeg", "image/jpg"})
+     * @Assert\Image(
+     *     maxSize="300k"
+     *  )
      */
     private $file;
 
@@ -39,12 +41,12 @@ class Image
         return $this->id;
     }
 
-    public function getFile(): ?string
+    public function getFile()
     {
         return $this->file;
     }
 
-    public function setFile(string $file): self
+    public function setFile($file): self
     {
         $this->file = $file;
 

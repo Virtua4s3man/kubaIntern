@@ -9,6 +9,7 @@
 namespace App\Form;
 
 use App\Entity\Image;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ImageType extends FileType
+class GalleryType extends FileType
 {
     private $imagePath;
 
@@ -29,32 +30,40 @@ class ImageType extends FileType
     {
         parent::buildForm($builder, $options);
         $builder->addModelTransformer(new CallbackTransformer(
-            function (Image $image = null) {
-                if ($image instanceof Image) {
-                    return new File($this->imagePath . $image->getFile());
+            function ($gallery = null) {
+                if ($gallery instanceof \Traversable) {
+                    $output = [];
+                    foreach ($gallery as $image) {
+                        $output[] = new File($this->imagePath . $image->getFile());
+                    }
+                    return $output;
                 }
             },
-            function (UploadedFile $uploadedFile = null) {
-                if ($uploadedFile instanceof UploadedFile) {
-                    $image = new Image();
-                    $image->setFile($uploadedFile);
-                    return $image;
+            function ($uploadedFiles): ArrayCollection {
+                if (count($uploadedFiles) > 0 and $uploadedFiles[0] instanceof UploadedFile) {
+                    foreach ($uploadedFiles as &$file) {
+                        $image = new Image();
+                        $image->setFile($file);
+                        $file = $image;
+                    }
+                    return new ArrayCollection($uploadedFiles);
                 }
+                return new ArrayCollection();
             }
         ));
     }
 
     public function getBlockPrefix()
     {
-        return 'image';
+        return 'gallery';
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults([
-            'data_class' => Image::class,
-            'required' => false
+            'required' => false,
+            'multiple' => true,
         ]);
     }
 }

@@ -62,11 +62,13 @@ class Product
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     * @Assert\Valid
      */
     private $cover;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="product", cascade={"persist", "remove"})
+     * @Assert\Valid
      */
     private $gallery;
 

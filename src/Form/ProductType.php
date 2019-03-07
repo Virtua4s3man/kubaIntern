@@ -27,13 +27,13 @@ class ProductType extends AbstractType
                 ]
             )
             ->add('cover', ImageType::class)
-            ->add('gallery', ImageType::class, ['multiple'=>true]);
+            ->add('gallery', GalleryType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Product::class,
+            'data_class' => Product::class
         ]);
     }
 }

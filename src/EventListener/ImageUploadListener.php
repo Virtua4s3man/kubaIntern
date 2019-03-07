@@ -26,20 +26,35 @@ class ImageUploadListener
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        $this->uploadFile($entity);
+        $this->uploadFiles($entity);
     }
 
     public function preUpdate(PreUpdateEventArgs $args)
     {
         $entity = $args->getEntity();
-        $this->uploadFile($entity);
+        $this->uploadFiles($entity);
     }
 
-    private function uploadFile($entity)
+    private function uploadFiles($entity)
     {
-        if (!$entity instanceof Image) {
-            return;
+        if ($entity instanceof Image) {
+            $this->uploadImage($entity);
         }
+
+        if (is_array($entity) and $entity[0] instanceof Image) {
+            $this->uploadGallery($entity);
+        }
+    }
+
+    private function uploadGallery(array $entity)
+    {
+        foreach ($entity as &$image) {
+            $this->uploadImage($image);
+        }
+    }
+
+    private function uploadImage(Image &$entity)
+    {
         $file = $entity->getFile();
         if ($file instanceof UploadedFile) {
             $filename = $this->uploader->upload($file);
