@@ -14,11 +14,6 @@ class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//        TODO DEBUG
-        $cover = $options['data']->getCover();
-        dump();
-//    TODO DEBUG END
-
         $builder
             ->add('name', TextType::class, ['label' => 'name'])
             ->add('description', TextType::class, ['label' => 'description'])
