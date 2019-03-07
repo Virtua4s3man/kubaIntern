@@ -20,9 +20,7 @@
                 {% if product.cover != null %}
                     <div class="col-md-4">
                         <div class="thumbnail">
-                            <a href="/w3images/lights.jpg">
-                                <img class="img-fluid" src="{{ asset('img/' ~ product.cover.file) }}" alt="">
-                            </a>
+                            <img class="img-fluid" src="{{ asset('img/' ~ product.cover.file) }}" alt="">
                         </div>
                     </div>
                 {% endif %}

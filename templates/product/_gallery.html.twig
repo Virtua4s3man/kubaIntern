@@ -2,9 +2,7 @@
     {% for image in product.gallery %}
         <div class="col-md-4">
             <div class="thumbnail">
-                <a href="/w3images/lights.jpg">
-                    <img class="img-fluid" src="{{ asset('img/' ~ image.file) }}" alt="">
-                </a>
+                <img class="img-fluid" src="{{ asset('img/' ~ image.file) }}" alt="">
             </div>
         </div>
     {% endfor %}

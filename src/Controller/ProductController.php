@@ -81,8 +81,11 @@ class ProductController extends AbstractController
         TranslatorInterface $translator
     ): Response {
         $form = $this->createForm(ProductType::class, $product);
+//TODO DEBUG
+        dump($product);
+        exit;
+//TODO DEBUG END
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 

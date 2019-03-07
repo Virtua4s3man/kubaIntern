@@ -33,6 +33,10 @@ class ImageType extends FileType
         parent::buildForm($builder, $options);
         $builder->addModelTransformer(new CallbackTransformer(
             function (Image $image = null) {
+//                TODO debug
+                dump($image);
+//                exit;
+//                TODO debug end
                 if ($image instanceof Image) {
                     return new File($this->imagePath . $image->getFile());
                 }
