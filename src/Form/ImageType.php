@@ -53,7 +53,6 @@ class ImageType extends FileType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults([
-            'data_class' => Image::class,
             'required' => false
         ]);
     }
