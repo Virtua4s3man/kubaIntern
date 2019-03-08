@@ -8,14 +8,19 @@
 
 namespace App\Utils;
 
-
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class RandomBookService
 {
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
+    /**
+     * @var SessionInterface
+     */
     private $session;
 
     public function __construct(LoggerInterface $logger, SessionInterface $session)
@@ -38,5 +43,4 @@ class RandomBookService
     {
         return $this->session->get('randomBookService_book');
     }
-
 }

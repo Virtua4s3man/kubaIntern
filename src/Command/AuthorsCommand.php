@@ -15,6 +15,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class AuthorsCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:authors';
 
     /**
@@ -33,7 +36,6 @@ class AuthorsCommand extends Command
         $this->serializer = $serializer;
         $this->authorRepository = $authorRepository;
     }
-
 
     protected function configure()
     {

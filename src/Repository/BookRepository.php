@@ -16,6 +16,9 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class BookRepository extends ServiceEntityRepository
 {
+    /**
+     * @var RandomBookService
+     */
     private $randomBookService;
 
     public function __construct(RegistryInterface $registry, RandomBookService $randomBookService)
