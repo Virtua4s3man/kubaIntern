@@ -40,7 +40,7 @@ class AuthorsCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Add a short description for your command')
+            ->setDescription('Shows authors')
             ->addOption('char', null, InputOption::VALUE_OPTIONAL, 'Finds authors which surnames strats with passed letter')
             ->addOption('save', null, InputOption::VALUE_OPTIONAL, 'Saves authors to a txt file');
     }
