@@ -9,6 +9,7 @@
 namespace App\Form;
 
 use App\Entity\Image;
+use App\Repository\ImageRepository;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -11,7 +11,21 @@
 
     {{ include('product/_delete_form.html.twig') }}
 
-    {% for image in product.gallery %}
-        {{ include('product/_delete_gallery_image_form.html.twig') }}
-    {% endfor %}
+    <h3>{{ 'image cover' | trans }}</h3>
+    {% set image = product.cover %}
+    {{ include('product/_image.html.twig') }}
+    {{ include('product/_delete_gallery_image_form.html.twig') }}
+
+    <h3>{{ 'image gallery' | trans }}</h3>
+    <div class="row">
+        {% for image in product.gallery %}
+            <div class="col-md-4">
+                <div class="thumbnail">
+                    <img class="img-fluid" src="{{ asset('img/' ~ image.file) }}" alt="">
+                </div>
+                {{ include('product/_delete_gallery_image_form.html.twig') }}
+            </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}

@@ -1,5 +1,4 @@
 <form method="post" action="{{ path('product_image_delete', {'id': image.id}) }}">
-    usuń z galerii zdjęcie o id {{ image.id }}
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
     <button class="btn btn-success">{{ 'delete' | trans }}</button>

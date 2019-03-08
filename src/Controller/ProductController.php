@@ -8,6 +8,7 @@ use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Utils\ProductLogger;
 use App\Utils\ProductWishlist;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,10 +82,13 @@ class ProductController extends AbstractController
         TranslatorInterface $translator
     ): Response {
         $form = $this->createForm(ProductType::class, $product);
+        $gallery = $product->getGallery()->toArray();
+        $cover = $product->getCover();
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+            //todo to na dole do innej funkcji
+            $this->productUpdate($cover, $gallery, $product);
             $this->addFlash(
                 'success',
                 $translator->trans("product has been updated")
@@ -181,5 +185,20 @@ class ProductController extends AbstractController
         }
 
         return $this->redirect($wishlist->getRefererUrl($request));
+    }
+
+    private function productUpdate(Image $cover, array $gallery, Product &$product)
+    {
+        if (null === $product->getCover()) {
+            $product->setCover($cover);
+        }
+        $newGalery = array_merge($gallery, $product->getGallery()->toArray());
+        foreach ($newGalery as $image) {
+            $product->addGallery($image);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
     }
 }
