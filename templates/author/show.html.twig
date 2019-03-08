@@ -4,7 +4,10 @@
 
 {% block body %}
     <h1>Author</h1>
-
+    {% set books = author.books|length %}
+    {% transchoice books %}
+        {0} Author has no books|{1} Author has one book|]1,5[ Author has %books% books|]5,inf[ Author has %books% books
+    {% endtranschoice %}
     <table class="table table-dark table-stripped">
         <tbody>
             <tr>

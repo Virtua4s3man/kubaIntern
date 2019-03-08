@@ -34,3 +34,10 @@
         {% endif %}
     </ul>
 </div>
+{% if last_random_book != null %}
+    <div>
+        <a href="{{ url('book_show', {'id':last_random_book}) }}">
+            {{ 'Last drawn book' | trans }}
+        </a>
+    </div>
+{% endif %}

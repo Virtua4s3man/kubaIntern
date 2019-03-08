@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="pl" target-language="pl" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -145,41 +145,49 @@
         <source>(current)</source>
         <target>(bieżące)</target>
       </trans-unit>
-      <trans-unit id="can not remove category containing products" resname="can not remove category containing products">
+      <trans-unit id="IbQDuwn" resname="can not remove category containing products">
         <source>can not remove category containing products</source>
         <target>nie można usunąć kategori zawierającej produkty</target>
       </trans-unit>
-      <trans-unit id="category has been deleted" resname="category has been deleted">
+      <trans-unit id="qkbJYDb" resname="category has been deleted">
         <source>category has been deleted</source>
         <target>kategoria została usunięta</target>
       </trans-unit>
-      <trans-unit id="category has been added" resname="category has been added">
+      <trans-unit id="Q.QtX6b" resname="category has been added">
         <source>category has been added</source>
         <target>kategoria została dodana</target>
       </trans-unit>
-      <trans-unit id="category has been updated" resname="category has been updated">
+      <trans-unit id="3D0MM66" resname="category has been updated">
         <source>category has been updated</source>
         <target>kategoria została zedytowana</target>
       </trans-unit>
-      <trans-unit id="product has been added" resname="product has been added">
+      <trans-unit id="J7o7wIC" resname="product has been added">
         <source>product has been added</source>
         <target>podukt został dodany</target>
       </trans-unit>
-      <trans-unit id="product has been updated" resname="product has been updated">
+      <trans-unit id="P3Ir2g1" resname="product has been updated">
         <source>product has been updated</source>
         <target>produkt został zedytowany</target>
       </trans-unit>
-      <trans-unit id="product has been deleted" resname="product has been deleted">
+      <trans-unit id="wb3xkFa" resname="product has been deleted">
         <source>product has been deleted</source>
         <target>produkt został skasowany</target>
       </trans-unit>
-      <trans-unit id="save" resname="save">
+      <trans-unit id="FX3KkuQ" resname="save">
         <source>save</source>
         <target>zapisz</target>
       </trans-unit>
-      <trans-unit id="Locale" resname="Locale">
+      <trans-unit id="yj3GEvR" resname="Locale">
         <source>Locale</source>
         <target>język</target>
+      </trans-unit>
+      <trans-unit id="p5UKVOr" resname="image cover">
+        <source>image cover</source>
+        <target>__image cover</target>
+      </trans-unit>
+      <trans-unit id="e5T.oH." resname="image gallery">
+        <source>image gallery</source>
+        <target>__image gallery</target>
       </trans-unit>
     </body>
   </file>
