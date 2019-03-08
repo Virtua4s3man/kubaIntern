@@ -189,6 +189,14 @@
         <source>image gallery</source>
         <target>__image gallery</target>
       </trans-unit>
+      <trans-unit id="aZbTkwk" resname="{0} Author has no books|{1} Author has one book|]1,5[ Author has %books% books|]5,inf[ Author has %books% books">
+        <source>{0} Author has no books|{1} Author has one book|]1,5[ Author has %books% books|]5,inf[ Author has %books% books</source>
+        <target>__{0} Author nie ma książek|{1} Author ma 1 książkę|]1,5[ Autor ma %books% książki|]5,inf[ Author has %books% książek</target>
+      </trans-unit>
+      <trans-unit id="j6Tj5f5" resname="Last drawn book">
+        <source>Last drawn book</source>
+        <target>Ostatnio wylosowana książka</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
