@@ -8,7 +8,6 @@ use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Utils\ProductLogger;
 use App\Utils\ProductWishlist;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -87,7 +86,6 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //todo to na dole do innej funkcji
             $this->productUpdate($cover, $gallery, $product);
             $this->addFlash(
                 'success',

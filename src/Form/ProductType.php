@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Product;
 use App\Entity\ProductCategory;
-use App\Repository\ImageRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
