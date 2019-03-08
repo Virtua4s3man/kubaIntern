@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
@@ -15,6 +16,7 @@ class Book
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("rest")
      */
     private $id;
 
@@ -23,6 +25,7 @@ class Book
      * @Assert\Length(max=64)
      * @Assert\NotBlank
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
+     * @Groups("rest")
      */
     private $title;
 
@@ -31,6 +34,7 @@ class Book
      * @Assert\Length(max=255)
      * @Assert\NotBlank
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
+     * @Groups("rest")
      */
     private $description;
 
@@ -38,6 +42,7 @@ class Book
      * @ORM\Column(type="integer")
      * @Assert\Type(type="integer")
      * @Assert\NotBlank
+     * @Groups("rest")
      */
     private $year;
 
@@ -46,12 +51,14 @@ class Book
      * @Assert\Length(max=64)
      * @Assert\NotBlank
      * @Assert\Country
+     * @Groups("rest")
      */
     private $country;
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\Type(type="boolean")
+     * @Groups("rest")
      */
     private $available;
 
@@ -59,12 +66,14 @@ class Book
      * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
+     * @Groups("rest")
      */
     private $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Genre", inversedBy="books")
      * @Assert\NotBlank
+     * @Groups("rest")
      */
     private $genre;
 
@@ -81,6 +90,12 @@ class Book
      * @Assert\Type(type="\DateTime")
      */
     private $modification;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     * @Assert\Valid
+     */
+    private $cover;
 
     public function getId(): ?int
     {
@@ -191,6 +206,18 @@ class Book
     public function setModification(\DateTimeInterface $modification): self
     {
         $this->modification = $modification;
+
+        return $this;
+    }
+
+    public function getCover(): ?Image
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?Image $cover): self
+    {
+        $this->cover = $cover;
 
         return $this;
     }

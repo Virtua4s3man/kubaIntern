@@ -69,9 +69,13 @@ class BookController extends AbstractController
     public function edit(Request $request, Book $book): Response
     {
         $form = $this->createForm(BookType::class, $book);
+        $cover = $book->getCover();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($book->getCover() === null) {
+                $book->setCover($cover);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash(

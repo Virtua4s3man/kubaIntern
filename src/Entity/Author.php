@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AuthorRepository")
@@ -17,6 +18,7 @@ class Author
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("rest")
      */
     private $id;
 
@@ -25,6 +27,7 @@ class Author
      * @Assert\NotBlank
      * @Assert\Length(max=64)
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
+     * @Groups("rest")
      */
     private $name;
 
@@ -33,6 +36,7 @@ class Author
      * @Assert\NotBlank
      * @Assert\Length(max=64)
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
+     * @Groups("rest")
      */
     private $surname;
 

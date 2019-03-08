@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Book;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GenreRepository")
@@ -19,6 +19,7 @@ class Genre
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("rest")
      */
     private $id;
 
@@ -27,6 +28,7 @@ class Genre
      * @Assert\Length(max=64)
      * @Assert\NotBlank
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
+     * @Groups("rest")
      */
     private $name;
 
