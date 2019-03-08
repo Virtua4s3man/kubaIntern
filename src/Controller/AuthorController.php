@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/library/author")
@@ -18,8 +19,25 @@ class AuthorController extends AbstractController
     /**
      * @Route("/", name="author_index", methods={"GET"})
      */
-    public function index(AuthorRepository $authorRepository): Response
+    public function index(SerializerInterface $serializer, AuthorRepository $authorRepository): Response
     {
+//        todo remove
+        $authors = $authorRepository->findBySurname('a');
+        $dono = array_map(function (Author $author) {
+            $output = [];
+            $output['id'] = $author->getId();
+            $output['Nazwisko'] = $author->getName();
+            $output['Imię'] = $author->getSurname();
+            $output['Ilość książek'] = count($author->getBooks());
+            return $output;
+        }, $authors);
+        $csv = $serializer->serialize($dono, 'csv');
+        dump(preg_replace('/^.*\n/', '', $csv));
+//        $authors = [new Author()];
+//        $csv = strtok($csv, "\n");
+//        dump($csv);
+        exit;
+//    todo remove
         return $this->render('author/index.html.twig', [
             'authors' => $authorRepository->findAll(),
         ]);

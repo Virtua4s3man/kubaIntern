@@ -18,7 +18,7 @@ class Author
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("rest")
+     * @Groups({"rest", "csv"})
      */
     private $id;
 
@@ -27,7 +27,7 @@ class Author
      * @Assert\NotBlank
      * @Assert\Length(max=64)
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
-     * @Groups("rest")
+     * @Groups({"rest", "csv"})
      */
     private $name;
 
@@ -36,7 +36,7 @@ class Author
      * @Assert\NotBlank
      * @Assert\Length(max=64)
      * @Assert\Regex("/^[\s\p{L}0-9\.\,]+$/u")
-     * @Groups("rest")
+     * @Groups({"rest", "csv"})
      */
     private $surname;
 
