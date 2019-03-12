@@ -25,14 +25,11 @@
                 {% endfor %}
             </ul>
         </li>
-        {% if random_book %}
-            <a href="{{ path('book_show', {'id':random_book.id}) }}">
-                <button class="btn btn-success">
-                    Go to random book
-                </button>
-            </a>
-        {% endif %}
     </ul>
+    <form method="POST" action="{{ path('randomBook') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('random') }}">
+        <button class="btn btn-success">{{ 'go to random book' | trans }}</button>
+    </form>
 </div>
 {% if last_random_book != null %}
     <div>

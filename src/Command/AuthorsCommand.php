@@ -6,7 +6,6 @@ use App\Entity\Author;
 use App\Repository\AuthorRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -41,7 +40,12 @@ class AuthorsCommand extends Command
     {
         $this
             ->setDescription('Shows authors')
-            ->addOption('char', null, InputOption::VALUE_OPTIONAL, 'Finds authors which surnames strats with passed letter')
+            ->addOption(
+                'char',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Finds authors which surnames strats with passed letter'
+            )
             ->addOption('save', null, InputOption::VALUE_OPTIONAL, 'Saves authors to a txt file');
     }
 
@@ -61,7 +65,7 @@ class AuthorsCommand extends Command
                 $io->error('argument should be valid alphabet sign');
                 return;
             }
-            $authors = $this->authorRepository->findBySurname($char);
+            $authors = $this->authorRepository->findByFirstLetterOfSurname($char);
         } else {
             $authors = $this->authorRepository->findAll();
         }
@@ -95,9 +99,13 @@ class AuthorsCommand extends Command
             $file = fopen($save, 'w');
                 fwrite($file, $this->converAuthorsToFileFormat($authorsViewArray));
             fclose($file);
+
+            $io->success('Authors succesfully saved to file');
         }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        if (count($authors) === 0) {
+            $io->note('No authors found');
+        }
     }
 
     private function mapAuthorsToViewArray($authors)

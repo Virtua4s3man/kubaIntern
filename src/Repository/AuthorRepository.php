@@ -23,24 +23,11 @@ class AuthorRepository extends ServiceEntityRepository
     //  * @return Author[] Returns an array of Author objects
     //  */
 
-    public function findBySurname($surname)
+    public function findByFirstLetterOfSurname(string $letter)
     {
-//        return $this->_em->createQueryBuilder()
-//            ->select('a.id, a.name, a.books')
-//            ->from($this->_entityName, 'a', null)
-//            ->getQuery()
-//            ->getResult();
-
-//        return $this->_em->createQueryBuilder()
-//            ->select('a.id, a.name, a.surname, a.books')
-//            ->from($this->_entityName, 'a', null)
-//            ->andWhere('a.surname LIKE :surname')
-//            ->setParameter('surname', $surname . '%')
-//            ->getQuery()
-//            ->getResult();
         return $this->createQueryBuilder('a')
             ->andWhere('a.surname LIKE :surname')
-            ->setParameter('surname', $surname . '%')
+            ->setParameter('surname', $letter . '%')
             ->getQuery()
             ->getResult()
         ;

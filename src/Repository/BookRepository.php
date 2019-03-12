@@ -3,9 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Book;
-use App\Utils\RandomBookService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -16,15 +14,9 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class BookRepository extends ServiceEntityRepository
 {
-    /**
-     * @var RandomBookService
-     */
-    private $randomBookService;
-
-    public function __construct(RegistryInterface $registry, RandomBookService $randomBookService)
+    public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Book::class);
-        $this->randomBookService = $randomBookService;
     }
 
     /**
@@ -35,11 +27,7 @@ class BookRepository extends ServiceEntityRepository
     {
         $bookAmount = $this->count([]);
         $book = $bookAmount ? $this->findBy([], null, 1, rand()%$bookAmount)[0] : null;
-        if ($book instanceof Book) {
-            $id = $book->getId();
-            $this->randomBookService->log($id);
-            $this->randomBookService->save($id);
-        }
+
         return $book;
     }
 
