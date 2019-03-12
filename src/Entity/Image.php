@@ -21,7 +21,9 @@ class Image
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Image(
-     *     maxSize="300k"
+     *     maxSize="300k",
+     *     maxWidth="300",
+     *     maxHeight="300"
      *  )
      */
     private $file;

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Form\BookType;
 use App\Repository\BookRepository;
+use App\Utils\RandomBookService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,9 +70,13 @@ class BookController extends AbstractController
     public function edit(Request $request, Book $book): Response
     {
         $form = $this->createForm(BookType::class, $book);
+        $cover = $book->getCover();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($book->getCover() === null) {
+                $book->setCover($cover);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash(
@@ -107,5 +112,23 @@ class BookController extends AbstractController
         }
 
         return $this->redirectToRoute('book_index');
+    }
+
+    /**
+     * @Route("/randomBook", name="randomBook", methods={"POST"})
+     */
+    public function goToRandom(Request $request, RandomBookService $randomBookService): Response
+    {
+        if ($this->isCsrfTokenValid('random', $request->request->get('_token'))) {
+            $book = $randomBookService->getRandomBook();
+
+            if ($book) {
+                return $this->redirectToRoute('book_show', ['id' => $book->getId()]);
+            } else {
+                $this->addFlash('warning', 'no books found');
+            }
+        }
+
+        return $this->redirect($request->headers->get('referer'));
     }
 }

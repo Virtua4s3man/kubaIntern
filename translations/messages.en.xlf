@@ -178,6 +178,14 @@
             <source>Locale</source>
             <target>Locale</target>
         </trans-unit>
+        <trans-unit id="aZbTkwk" resname="{0} Author has no books|{1} Author has one book|]1,5[ Author has %books% books|]5,inf[ Author has %books% books">
+            <source>{0} Author has no books|{1} Author has one book|]1,5[ Author has %books% books|]5,inf[ Author has %books% books</source>
+            <target>{0} Author has no books|{1} Author has one book|]1,5[ Author has %books% books|]5,inf[ Author has %books% books</target>
+        </trans-unit>
+        <trans-unit id="j6Tj5f5" resname="Last drawn book">
+            <source>Last drawn book</source>
+            <target>Last drawn book</target>
+        </trans-unit>
     </body>
 </file>
 </xliff>

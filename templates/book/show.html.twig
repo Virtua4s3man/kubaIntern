@@ -19,6 +19,14 @@
                 <th>Description</th>
                 <td>{{ book.description }}</td>
             </tr>
+            {% if book.cover != null %}
+                <tr>
+                    <th>Cover</th>
+                    <td>
+                        <img src="{{ asset('img/' ~ book.cover.file) }}" alt="">
+                    </td>
+                </tr>
+            {% endif %}
             <tr>
                 <th>Year</th>
                 <td>{{ book.year }}</td>

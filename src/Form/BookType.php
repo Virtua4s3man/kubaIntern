@@ -40,6 +40,7 @@ class BookType extends AbstractType
                     'choice_label' => 'name',
                 ]
             )
+            ->add('cover', ImageType::class)
         ;
     }
 
